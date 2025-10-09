@@ -61,9 +61,9 @@ Permite asegurarse de que los campos tengan el formato correcto antes de enviarl
 -------------Debatir cual usar---------------------
 
 🧠 Conceptos clave que usamos
-Concepto	Descripción breve
-useState	Hook de React para manejar variables reactivas (que cambian en pantalla)
-useEffect	Hook que ejecuta código al montar o actualizar un componente
-useQuery	Hook (de React Query) para manejar peticiones a la API de forma automática
-axios	Hace las llamadas HTTP al backend
-Tailwind	Estilos rápidos con clases en el HTML (sin escribir CSS puro)
+### Concepto	Descripción breve
+- useState	Hook de React para manejar variables reactivas (que cambian en pantalla)
+- useEffect	Hook que ejecuta código al montar o actualizar un componente
+- useQuery	Hook (de React Query) para manejar peticiones a la API de forma automática
+- axios	Hace las llamadas HTTP al backend
+- Tailwind	Estilos rápidos con clases en el HTML (sin escribir CSS puro)
