@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./layouts/Layout"
-import IndexView from "./views/IndexView"
+import IndexView from "./views/Home/IndexView"
+import AboutUsView from "./views/aboutus/AboutUsView"
 
 export default function Router() {
     return (
@@ -8,6 +9,7 @@ export default function Router() {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<IndexView />} />
+                    <Route path="about" element={<AboutUsView />} />
                 </Route>
             </Routes>
         </BrowserRouter>
