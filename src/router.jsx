@@ -5,6 +5,7 @@ import AboutUsView from "./views/aboutus/AboutUsView"
 import LoginView from "./auth/LoginView"
 import LoginEmpresa from "./auth/LoginEmpresaView"
 import RegisterView from "./auth/RegisterView"
+import IndexEmpresasView from "./views/home/IndexEmpresasView"
 
 export default function Router() {
     return (
@@ -16,6 +17,7 @@ export default function Router() {
                     <Route path="auth/login" element={<LoginView />} />
                     <Route path="auth/login-empresas" element={<LoginEmpresa />} />
                     <Route path="auth/register" element={<RegisterView />} />
+                    <Route path="index-empresas" element={<IndexEmpresasView />} />
                 </Route>
             </Routes>
         </BrowserRouter>
