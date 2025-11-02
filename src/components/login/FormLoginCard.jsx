@@ -7,7 +7,7 @@ export default function FormLoginCard() {
         /* Contenedor principal con dos columnas */
         <div className=" items-start">
           {/* Columna izquierda - Formulario */}
-          <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-200">
+          <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-200 h-full flex flex-col justify-between">
 
             {/* /* Botón de Google */}
             <button className="w-full bg-[url('/img/bgc-google.png')] bg-cover bg-center text-gray-800 font-semibold py-3 px-6 rounded-full flex items-center justify-center gap-3 mb-6 hover:opacity-90 transition border border-blue">
