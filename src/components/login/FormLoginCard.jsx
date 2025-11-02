@@ -21,7 +21,7 @@ export default function FormLoginCard() {
             </button>
 
             {/* /* Divisor */}
-            <div className="flex items-center gap-4 my-6">
+            <div className="flex items-center gap-4 my-2">
               <div className="flex-1 border-t border-gray-300"></div>
               <span className="text-gray-500 font-semibold">O</span>
               <div className="flex-1 border-t border-gray-300"></div>
@@ -32,15 +32,15 @@ export default function FormLoginCard() {
               {/* /* Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
+                  Correo electrónico
                 </label>
                 <div className="relative">
-                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#4D1874]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <input
                     type="email"
-                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#3b115a] focus:border-transparent"
                     placeholder=""
                   />
                 </div>
@@ -52,12 +52,12 @@ export default function FormLoginCard() {
                   Contraseña
                 </label>
                 <div className="relative">
-                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#4D1874]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                   <input
                     type={showPassword ? "text" : "password"}
-                    className="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#3b115a] focus:border-transparent"
                     placeholder=""
                   />
                   <button
@@ -81,7 +81,7 @@ export default function FormLoginCard() {
 
               {/* /* Olvidaste contraseña */}
               <div className="text-center">
-                <a href="#" className="text-purple-700 text-sm hover:underline">
+                <a href="#" className="text-[#4D1874] text-sm hover:underline">
                   ¿Olvidaste tu contraseña?
                 </a>
               </div>
@@ -89,7 +89,7 @@ export default function FormLoginCard() {
               {/* /* Botón Ingresar */}
               <button
                 type="button"
-                className="w-full bg-purple-900 text-white font-semibold py-3 px-6 rounded-full hover:bg-purple-800 transition"
+                className="w-full bg-[#4D1874] text-white font-semibold py-3 px-6 rounded-full hover:bg-[#3b115a] transition"
               >
                 Ingresar
               </button>
@@ -97,8 +97,8 @@ export default function FormLoginCard() {
               {/* /* Registro */}
               <div className="text-center">
                 <span className="text-gray-600">¿No tenés cuenta? </span>
-                <a href="#" className="text-purple-700 font-semibold hover:underline">
-                  Regístrate
+                <a href="#" className="text-[#4D1874] font-semibold hover:underline">
+                  Registrate
                 </a>
               </div>
             </div>

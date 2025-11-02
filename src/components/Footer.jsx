@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 export default function Footer() {
     return (
         // {/* Footer */}
-        <footer className="mt-12 text-center">
+        <footer className="mt-12 text-center overflow-x-hidden">
           <nav className="flex flex-wrap justify-center gap-6 mb-6 text-gray-700">
             <a href="/" className="hover:text-purple-700">Inicio</a>
             <span>-</span>
