@@ -113,7 +113,7 @@ export default function FormRegisterView() {
   return (
     <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-200">
       {/* Título del formulario */}
-      <h1 className="text-3xl font-bold text-center mb-6">
+      <h1 className="text-3xl font-bold text-center mb-12">
         Registrate y encontrá tu pasantía ideal
       </h1>
 
