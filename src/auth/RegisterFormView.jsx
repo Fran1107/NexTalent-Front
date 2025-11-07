@@ -13,6 +13,7 @@ import {
   CalendarIcon,
   LocationIcon,
 } from "../components/register/FormField";
+
 import SocialSection from "../components/social/SocialSection";
 
 export default function FormRegisterView() {
@@ -132,7 +133,7 @@ export default function FormRegisterView() {
             required
           />
           <FormField
-            label="Apellidos(s)"
+            label="Apellido(s)"
             type="text"
             name="lastName"
             icon={UserIcon}
