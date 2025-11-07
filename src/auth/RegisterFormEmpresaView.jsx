@@ -365,6 +365,15 @@ export default function RegisterFromEmpresaView () {
 
                 </div>
 
+                <div className="text-center">
+                    <span className="text-gray-600">
+                        ¿Ya tienes una cuenta? 
+                    </span>
+                    <a href="#" className="text-[#4D1874] font-semibold hover:underline">
+                        Inicia sesión
+                    </a>
+                </div>
+
                 {/* Botón de envío de formulario */}
                 <button type="submit" className="w-full bg-[#4D1874] text-white font-semibold py-3 px-6 rounded-full hover:bg-[#3b115a] transition"
                 >
