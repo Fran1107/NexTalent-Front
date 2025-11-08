@@ -25,7 +25,7 @@ export default function CustomDropdown({
       {label && (
         <label className="block mb-2">
           {required && <span className="text-red-500 mr-1">*</span>}
-          <span className="text-gray-800 font-medium">{label}</span>
+          <span className="text-gray-700 font-medium text-sm">{label}</span>
         </label>
       )}
 

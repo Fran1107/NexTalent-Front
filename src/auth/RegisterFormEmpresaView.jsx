@@ -7,8 +7,15 @@ import { useState } from "react";
 import CustomDropdown from "../components/CustomDropdown";
 import { FormField, UserIcon } from "../components/register/FormField";
 import SocialSection from "../components/social/SocialSection";
+import { NavLink } from "react-router-dom";
 
 export default function RegisterFromEmpresaView () {
+
+    //   Términos y condiciones
+    const [acceptTerms, setAcceptTerms] = useState(false)
+
+  // Indica si el usuario aceptó recibir promociones (checkbox)
+  const [acceptPromotions, setAcceptPromotions] = useState(false);
 
     // Controla como se muestra la contraseña
 
@@ -72,6 +79,7 @@ export default function RegisterFromEmpresaView () {
         }
 
         // completar-----------------------------
+
     }
 
     // Botón de enviar formulario
@@ -130,13 +138,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Nombre de la empresa */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="empresa" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="empresa" className="block text-sm font-medium text-gray-700 mb-2">
                             <span className="text-red-500 mr-1">*</span>
                             Nombre de la empresa
                         </label>
                         <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="empresa" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-600"/>
+                            <input id="empresa" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -144,13 +152,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Razón social */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="razonSocial" className="block  font-medium text-gray-700 mb-2">
+                        <label htmlFor="razonSocial" className="block text-sm font-medium text-gray-700 mb-2">
                             <span className="text-red-500 mr-1">*</span>
                             Razón social
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="razonSocial" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1] rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <input id="razonSocial" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1] rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -197,7 +205,7 @@ export default function RegisterFromEmpresaView () {
                 {/* Localidad */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="localidad" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="localidad" className="block font-medium text-gray-700 mb-2 text-sm">
                             <span className="text-red-500 mr-1">*</span>
                             Localidad
                         </label>
@@ -211,13 +219,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Número de calle de la empresa */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="numeroCalle" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="numeroCalle" className="block font-medium text-gray-700 mb-2 text-sm">
                             <span className="text-red-500 mr-1">*</span>
                             Número
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="numeroCalle" type="number" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <input id="numeroCalle" type="number" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -225,13 +233,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Calle de la empresa */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="calle" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="calle" className="block font-medium text-gray-700 mb-2 text-sm">
                             <span className="text-red-500 mr-1">*</span>
                             Calle
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="calle" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <input id="calle" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -239,13 +247,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Código postal */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="codigoPostal" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="codigoPostal" className="block text-sm font-medium text-gray-700 mb-2">
                             <span className="text-red-500 mr-1">*</span>
                             Código Postal
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="codigoPostal" type="number" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <input id="codigoPostal" type="number" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -266,13 +274,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Correo electrónico de la empresa */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="emailEmpresa" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="emailEmpresa" className="block text-sm font-medium text-gray-700 mb-2">
                             <span className="text-red-500 mr-1">*</span>
                             Correo electrónico de la empresa
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="emailEmpresa" type="email" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <input id="emailEmpresa" type="email" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -280,13 +288,13 @@ export default function RegisterFromEmpresaView () {
                 {/* Descripción de la empresa */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="descEmpresa" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="descEmpresa" className="block font-medium text-gray-700 mb-2 text-sm">
                             <span className="text-red-500 mr-1">*</span>
                             Descripción de la empresa
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="descEmpresa" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
+                            <input id="descEmpresa" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
                         </div>
                     </div>
                 </div>
@@ -294,12 +302,12 @@ export default function RegisterFromEmpresaView () {
                 {/* Logo de la empresa */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="empresa" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="empresa" className="block font-medium text-gray-700 mb-2 text-sm">
                             Logo
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="empresa" type="file" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-500"/>
+                            <input id="empresa" type="file" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent text-gray-500"/>
                         </div>
                     </div>
                 </div>
@@ -307,12 +315,12 @@ export default function RegisterFromEmpresaView () {
                 {/* Sitio web */}
                 <div className="gap-4">
                     <div>
-                        <label htmlFor="sitioWeb" className="block font-medium text-gray-800 mb-2">
+                        <label htmlFor="sitioWeb" className="block font-medium text-gray-700 mb-2 text-sm">
                             Sitio web
                         </label>
                         <div className="relative">
                             <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="sitioWeb" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-500" placeholder="URL"/>
+                            <input id="sitioWeb" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent text-gray-500" placeholder="URL"/>
                         </div>
                     </div>
                 </div>
@@ -365,13 +373,47 @@ export default function RegisterFromEmpresaView () {
 
                 </div>
 
+                {/* Campos obligatorios */}
+
+                    <p className="text-sm text-gray-600 font-semibold">
+                        <span className="text-red-500 mr-1">*</span>
+                        Campos requeridos
+                    </p>
+
+               {/* ------ Checkbox de términos y newsletter ----- */}
+
+                <div className="flex items-start">
+                    <input type="checkbox"
+                    id="terminos"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                    className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
+                    />
+                    <label htmlFor="terminos" className="ml-2 text-sm text-gray-500">
+                        Acepto los términos y condiciones, Política de Privacidad, Condiciones de Contratación, Política de Gestión de Calidad y Política de manejo de datos
+                    </label>
+                </div>
+
+                <div className="flex items-start mt-0.5">
+                    <input type="checkbox"
+                    id="promotions"
+                    checked={acceptPromotions}
+                    onChange={(e) => setAcceptPromotions(e.target.checked)}
+                    className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
+                    />
+                    <label htmlFor="promotions" className="ml-2 text-sm text-gray-500">
+                        Acepto recibir novedades y promociones
+                    </label>
+                </div>
+
+                {/* Enlace a iniciar sesión */}
                 <div className="text-center">
                     <span className="text-gray-600">
                         ¿Ya tienes una cuenta? 
                     </span>
-                    <a href="#" className="text-[#4D1874] font-semibold hover:underline">
+                    <NavLink to="/index-empresas" className="text-[#4D1874] font-semibold hover:underline ml-1">
                         Inicia sesión
-                    </a>
+                    </NavLink>
                 </div>
 
                 {/* Botón de envío de formulario */}

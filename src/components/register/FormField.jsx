@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------
 //  FormField – Componente reutilizable para cada input del login/registro
 // ---------------------------------------------------------------
-// Recibe todas las props necesarias para describir el campo y opcionalmente
-// mostrar un ícono y un botón de “ver/ocultar contraseña”.
+// Recibe todas las props necesarias para describir el campo y opcionalmente mostrar un ícono y un botón de “ver/ocultar contraseña”.
+
 export function FormField({ 
   label,                     // Texto que aparecerá como <label>
   type = 'text',             // Tipo HTML del <input> (text, email, password, …)
@@ -56,8 +56,8 @@ export function FormField({
             ${Icon ? 'pl-12' : 'pl-4'}          // espacio para el ícono
             ${showPasswordToggle ? 'pr-12' : 'pr-4'} // espacio para el ojo
             py-3 
-            bg-gray-50 border rounded-xl 
-            focus:outline-none focus:ring-2 focus:ring-[#3b115a] focus:border-transparent
+            bg-[#F3F1F1] rounded-xl 
+            focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent
             ${error ? 'border-red-500' : 'border-gray-300'}
           `}
           {...props}                       // permite pasar value, onChange, etc.

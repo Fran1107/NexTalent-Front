@@ -15,6 +15,7 @@ import {
 } from "../components/register/FormField";
 
 import SocialSection from "../components/social/SocialSection";
+import { NavLink } from "react-router-dom";
 
 export default function FormRegisterView() {
   // ---------- Estados de UI ----------
@@ -249,7 +250,8 @@ export default function FormRegisterView() {
 
         {/* ---------- Nota de campos obligatorios ---------- */}
         <p className="text-sm text-gray-600">
-          <span className="text-red-500">*</span> Campos obligatorios
+          <span className="text-red-500">*</span> 
+          Campos obligatorios
         </p>
 
         {/* ---------- Checkbox de promociones ---------- */}
@@ -261,7 +263,7 @@ export default function FormRegisterView() {
             onChange={(e) => setAcceptPromotions(e.target.checked)}
             className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
           />
-          <label htmlFor="promotions" className="ml-2 text-sm text-gray-700">
+          <label htmlFor="promotions" className="ml-2 text-sm text-gray-500">
             Acepto recibir Novedades y Promociones
           </label>
         </div>
@@ -269,9 +271,9 @@ export default function FormRegisterView() {
         {/* ---------- Enlace a iniciar sesión ---------- */}
         <div className="text-center">
           <span className="text-gray-600">¿Ya tienes una cuenta? </span>
-          <a href="#" className="text-[#4D1874] font-semibold hover:underline">
+          <NavLink to="/auth/login" className="text-[#4D1874] font-semibold hover:underline">
             Inicia sesión
-          </a>
+          </NavLink>
         </div>
 
         {/* ---------- Botón de envío ---------- */}
