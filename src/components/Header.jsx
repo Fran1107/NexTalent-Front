@@ -1,32 +1,35 @@
-import { NavLink } from 'react-router-dom'
-
 export default function Header() {
-    return (
-        <header className="bg-white shadow-sm border-b">
-            <nav className="container mx-auto px-4 py-4">
-                <div className="flex justify-between items-center">
-                    {/* Logo */}
-                    <div className="text-xl font-bold text-gray-800">
-                        Nextalent
-                    </div>
-                    
-                    {/* Navegación */}
-                    <div className="flex space-x-6">
-                        <NavLink to="/" className="text-gray-600 hover:text-blue-600 transition">Inicio</NavLink>
-                        <NavLink to="/about" className="text-gray-600 hover:text-blue-600 transition">Nosotros</NavLink>
-                    </div>
-                    
-                    {/* Auth buttons */}
-                    <div className="flex space-x-4">
-                        <NavLink to="/auth/login" className="px-4 py-2 text-gray-600 hover:text-blue-600 transition">
-                            Login
-                        </NavLink>
-                        <NavLink to="/auth/register" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                            Registrarse
-                        </NavLink>
-                    </div>
+const logoUrl = new URL('../assets/NexTalent-logo.png', import.meta.url).href;
+
+return (
+    <header className="w-full bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+            <div className="flex items-center gap-2">
+                <a href="/" aria-label="Ir al inicio">
+                    <img
+                        src={logoUrl}
+                        alt="NexTalent logotipo con la palabra NexTalent en morado y un emblema estilizado en N sobre fondo blanco, transmite una identidad profesional y moderna"
+                        className="h-8 w-auto"
+                    />
+                </a>
+                
+            </div>
+
+            <div className="flex items-center gap-6">
+                <span className="text-sm font-semibold text-black">
+                    Cuenta empresa
+                </span>
+
+                <div className="flex items-center gap-3">
+                    <button className="bg-purple-900 text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-purple-800 transition">
+                        Ingresar
+                    </button>
+                    <button className="border border-purple-900 text-purple-700 text-sm font-medium px-5 py-2 rounded-full hover:bg-purple-50 transition">
+                        Crear cuenta
+                    </button>
                 </div>
-            </nav>
-        </header>
-    )
+            </div>
+        </div>
+    </header>
+);
 }
