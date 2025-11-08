@@ -26,9 +26,10 @@ export function FormField({
           htmlFor={name} 
           className="block text-sm font-medium text-gray-700 mb-2"
         >
+          {required && <span className="text-red-500 mr-1">*</span>}
           {label}
           {/* Asterisco rojo para campos obligatorios */}
-          {required && <span className="text-red-500">*</span>}
+          
         </label>
       )}
 
@@ -58,7 +59,7 @@ export function FormField({
             py-3 
             bg-[#F3F1F1] rounded-xl 
             focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent
-            ${error ? 'border-red-500' : 'border-gray-300'}
+            ${error ? 'border-red-500' : 'border-gray-300'} text-gray-500
           `}
           {...props}                       // permite pasar value, onChange, etc.
         />

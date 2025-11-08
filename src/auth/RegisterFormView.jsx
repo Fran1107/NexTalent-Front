@@ -105,8 +105,6 @@ export default function FormRegisterView() {
       setErrors(newErrors);
       return;
     }
-    // Si todo está correcto, podemos enviar los datos (aquí solo se muestra en consola)
-    console.log("Register:", { ...formData, acceptPromotions });
   };
 
   // ---------------------------------------------------------------
@@ -249,9 +247,9 @@ export default function FormRegisterView() {
         </div>
 
         {/* ---------- Nota de campos obligatorios ---------- */}
-        <p className="text-sm text-gray-600">
-          <span className="text-red-500">*</span> 
-          Campos obligatorios
+        <p className="text-sm text-gray-600 font-semibold">
+          <span className="text-red-500 mr-1">*</span> 
+          Campos requeridos
         </p>
 
         {/* ---------- Checkbox de promociones ---------- */}
