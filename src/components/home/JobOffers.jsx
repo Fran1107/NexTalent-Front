@@ -1,7 +1,7 @@
 const jobData = [
-    { id: 1, title: "Pasante IT Project", company: "Puma Group", skills: "Pasantia - Full Time", ubicacion: "Buenos Aires, Martinez (Hibrido)", initials: "PG" },
-    { id: 2, title: "Desarrollador Full Stack Jr.", company: "Tech Solutions S.A.", skills: "Pasantia - Part Time", salary: "$1,800/mes", initials: "TS" },
-    { id: 3, title: "Diseñador UX/UI", company: "Creative Studio", skills: "Trainee - Full Time", salary: "$1,500/mes", initials: "CS" },
+    { id: 1, title: "Pasante IT Project", company: "Puma Group", skills: "Pasantia - Full Time", ubicacion: "Buenos Aires, Martinez (Hibrido)", initials: "PG", logo: "/img/puma-logo.webp" },
+    { id: 2, title: "Pasantía – Zona Sur", company: "BBVA Argentina", skills: "Pasantia - Part Time", ubicacion: "Buenos Aires, City Bell (Presencial)", initials: "BV", logo: "/img/bbva-logo.jpg" },
+    { id: 3, title: "Pasante IT", company: "Siemens", skills: "Pasantia - Full Time", ubicacion: "Buenos Aires (Remoto)", initials: "CS", logo:"/img/siemens-logo.webp" },
 ];
 
 export default function JobOffers() {
@@ -14,10 +14,25 @@ export default function JobOffers() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {jobData.map((job) => (
                         <div key={job.id} className="bg-white rounded-xl shadow-md border p-6 hover:shadow-lg transition">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-20 bg-gray-200 rounded-lg flex items-center justify-center mr-4">
-                                    <span className="text-gray-500">{job.initials}</span>
-                                </div>
+                        <div className="flex items-center mb-4">
+                        <div className="w-30 h-18 bg-gray-200 rounded-lg flex items-center justify-center mr-4 overflow-hidden">
+                        {job.logo ? (
+                        <img 
+                        src={job.logo} 
+                        alt={`${job.company} logo`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                    }}
+                />
+                ) : null}
+                    <div 
+                    className={`w-full h-full items-center justify-center bg-gray-200 text-gray-500 font-bold ${job.logo ? 'hidden' : 'flex'}`}
+                >
+            {job.initials}
+            </div>
+            </div>
                                 <div>
                                     <h3 className="font-semibold text-lg">{job.title}</h3>
                                 
