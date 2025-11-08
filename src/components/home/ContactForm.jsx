@@ -47,9 +47,9 @@ export default function ContactForm() {
                             </button>
                         </form>
                     </div>
-                <div className="absolute right-60 top-1/2 transform -translate-y-1/2 z-50 transition-transform hover:scale-125 duration-300 weight=fill">
+                {/* <div className="absolute right-60 top-1/2 transform -translate-y-1/2 z-50 transition-transform hover:scale-125 duration-300 weight=fill">
                             <a href=""target="_blank" rel="noopener noreferrer"><WhatsappLogoIcon size={70} color='#4D1874'/></a>
-                </div>
+                </div> */}
             </div>
             </div>
         </section>

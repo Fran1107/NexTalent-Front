@@ -9,7 +9,7 @@ export default function Router() {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<IndexView />} />
-                    <Route path="about" element={<AboutUsView />} />
+                    <Route path="quienessomos" element={<AboutUsView />} />
                 </Route>
             </Routes>
         </BrowserRouter>

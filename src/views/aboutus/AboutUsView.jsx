@@ -1,9 +1,14 @@
-import React from 'react'
+
+import HeroQuienesSomos from "../../components/aboutus/HeroQuienesSomos"
+import Mision from "../../components/aboutus/Mision"
+import Valores from "../../components/aboutus/Valores"
 
 export default function AboutUsView() {
     return (
-        <div className="p-10 text-center">
-            <h1 className="text-3xl font-bold">Sobre nosotros</h1>
-        </div>
+        <>
+            <HeroQuienesSomos />
+            <Mision />
+            <Valores />
+        </>
     )
 }

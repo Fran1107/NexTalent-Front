@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom' 
 
 export default function Header() {
     return (
@@ -13,7 +13,8 @@ export default function Header() {
                     {/* Navegación */}
                     <div className="flex space-x-6">
                         <NavLink to="/" className="text-gray-600 hover:text-blue-600 transition">Inicio</NavLink>
-                        <NavLink to="/about" className="text-gray-600 hover:text-blue-600 transition">Nosotros</NavLink>
+                        <NavLink to="/quienessomos" className="text-gray-600 hover:text-blue-600 transition">Quienes somos</NavLink>
+
                     </div>
                     
                     {/* Auth buttons */}
