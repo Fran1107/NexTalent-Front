@@ -29,6 +29,16 @@ export default function RegisterFromEmpresaView () {
     // Estado del formulario
 
     const [formData, setFormData] = useState({
+        companyName:"",
+        social:"",
+        localidad:"",
+        number:"",
+        street:"",
+        postal:"",
+        emailEmpresa:"",
+        description:"",
+        logo:"",
+        webSite:"",
         firstName:"",
         lastName:"",
         email:"",
@@ -137,32 +147,27 @@ export default function RegisterFromEmpresaView () {
             <form onSubmit={handleSubmit} className="space-y-5 grid md:grid-cols-2 gap-4"  /* onSubmit={handleSubmit} */ >
 
                 {/* Nombre de la empresa */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="empresa-name" className="block text-sm font-medium text-gray-700 mb-2">
-                            <span className="text-red-500 mr-1">*</span>
-                            Nombre de la empresa
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-600"/>
-                            <input id="empresa-name" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+                <FormField 
+                    label="Nombre de la empresa"
+                    type="text"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                    error={errors.companyName}
+                    required
+                />
 
                 {/* Razón social */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="razonSocial" className="block text-sm font-medium text-gray-700 mb-2">
-                            <span className="text-red-500 mr-1">*</span>
-                            Razón social
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="razonSocial" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1] rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Razón social"
+                    type="text"
+                    name="social"
+                    value={formData.social}
+                    onChange={handleChange}
+                    error={errors.social}
+                    required
+                />
 
                 {/* Condición fiscal */}
                 <div className="gap-4">
@@ -204,127 +209,114 @@ export default function RegisterFromEmpresaView () {
                 </div>
 
                 {/* Localidad */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="localidad" className="block font-medium text-gray-700 mb-2 text-sm">
-                            <span className="text-red-500 mr-1">*</span>
-                            Localidad
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="localidad" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Localidad"
+                    type="text"
+                    name=""
+                    value={formData.localidad}
+                    onChange={handleChange}
+                    error={errors.localida}
+                    required
+                />
 
                 {/* Número de calle de la empresa */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="numeroCalle" className="block font-medium text-gray-700 mb-2 text-sm">
-                            <span className="text-red-500 mr-1">*</span>
-                            Número
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="numeroCalle" type="number" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Número"
+                    type="number"
+                    name="number"
+                    value={formData.number}
+                    onChange={handleChange}
+                    error={errors.number}
+                    required
+                />
+
 
                 {/* Calle de la empresa */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="calle" className="block font-medium text-gray-700 mb-2 text-sm">
-                            <span className="text-red-500 mr-1">*</span>
-                            Calle
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="calle" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Calle"
+                    type="text"
+                    name="street"
+                    value={formData.street}
+                    onChange={handleChange}
+                    error={errors.street}
+                    required
+                />
+
 
                 {/* Código postal */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="codigoPostal" className="block text-sm font-medium text-gray-700 mb-2">
-                            <span className="text-red-500 mr-1">*</span>
-                            Código Postal
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="codigoPostal" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Código postal"
+                    type="text"
+                    name="postal"
+                    value={formData.postal}
+                    onChange={handleChange}
+                    error={errors.postal}
+                    required
+                />
 
                 {/* Modalidad de trabajo */}
-                <div className="gap-4">
-                    <div>
-                        <CustomDropdown
-                        label="Modalidad de trabajo"
-                        options={modalidades}
-                        required={true}
-                        value={modalidad}
-                        onChange={setModalidad}
-                        />
-                    </div>
-                </div>
+
+                    <CustomDropdown
+                    label="Modalidad de trabajo"
+                    options={modalidades}
+                    required={true}
+                    value={modalidad}
+                    onChange={setModalidad}
+                    />
 
                 {/* Correo electrónico de la empresa */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="emailEmpresa" className="block text-sm font-medium text-gray-700 mb-2">
-                            <span className="text-red-500 mr-1">*</span>
-                            Correo electrónico de la empresa
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="emailEmpresa" type="email" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Correo electrónico empresarial"
+                    type="email"
+                    name="emailEmpresa"
+                    value={formData.emailEmpresa}
+                    onChange={handleChange}
+                    error={errors.emailEmpresa}
+                    required
+                />
+
 
                 {/* Descripción de la empresa */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="descEmpresa" className="block font-medium text-gray-700 mb-2 text-sm">
-                            <span className="text-red-500 mr-1">*</span>
-                            Descripción de la empresa
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="descEmpresa" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Descripción de la empresa"
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    error={errors.description}
+                    required
+                />
+
 
                 {/* Logo de la empresa */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="empresa-logo" className="block font-medium text-gray-700 mb-2 text-sm">
-                            Logo
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="empresa-logo" type="file" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent text-gray-500"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Logo"
+                    type="file"
+                    name="logo"
+                    value={formData.logo}
+                    onChange={handleChange}
+                    error={errors.logo}
+                />
 
                 {/* Sitio web */}
-                <div className="gap-4">
-                    <div>
-                        <label htmlFor="sitioWeb" className="block font-medium text-gray-700 mb-2 text-sm">
-                            Sitio web
-                        </label>
-                        <div className="relative">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400"/>
-                            <input id="sitioWeb" type="text" className="w-full pl-12 pr-4 py-3 bg-[#F3F1F1]  rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent text-gray-500" placeholder="URL"/>
-                        </div>
-                    </div>
-                </div>
+
+                    <FormField 
+                    label="Sitio web"
+                    placeholder="https://tusitioweb.com"
+                    type="url"
+                    name="webSite"
+                    value={formData.webSite}
+                    onChange={handleChange}
+                    error={errors.webSite}
+                />
+
 
                 {/* Cantidad de empleados */}
                 <div className="gap-4">
