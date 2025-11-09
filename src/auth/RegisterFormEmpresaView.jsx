@@ -43,6 +43,7 @@ export default function RegisterFromEmpresaView () {
         lastName:"",
         email:"",
         phone:"",
+        password:"",
         confirmPassword:"",
         position:"",
     })
@@ -138,343 +139,346 @@ export default function RegisterFromEmpresaView () {
     return (
         <>
         {/* Titulo de página de registro para empresas */}
-        <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-200">
-            <h1 className="text-3xl font-bold text-center mb-12">
-                Ingresá los datos de tu empresa
-            </h1>
+        <div className="flex justify-center">
+            <div className="rounded-3xl shadow-lg p-8 border border-gray-200 max-w-5xl">
+                <h1 className="text-3xl font-bold text-center mb-12">
+                    Ingresá los datos de tu empresa
+                </h1>
 
-            {/* Formulario */}
-            <form onSubmit={handleSubmit} className="space-y-5 grid md:grid-cols-2 gap-4"  /* onSubmit={handleSubmit} */ >
+                {/* Formulario */}
+                <form /*onSubmit={handleSubmit}*/ className="space-y-5 grid md:grid-cols-2 gap-4"  >
 
-                {/* Nombre de la empresa */}
-                <FormField 
-                    label="Nombre de la empresa"
-                    type="text"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleChange}
-                    error={errors.companyName}
-                    required
-                />
-
-                {/* Razón social */}
-
+                    {/* Nombre de la empresa */}
                     <FormField 
-                    label="Razón social"
-                    type="text"
-                    name="social"
-                    value={formData.social}
-                    onChange={handleChange}
-                    error={errors.social}
-                    required
-                />
-
-                {/* Condición fiscal */}
-                <div className="gap-4">
-                    <div>
-                        <CustomDropdown 
-                        label="Condición Fiscal"
-                        options={condFiscal}
-                        required={true}
-                        value={fiscal}
-                        onChange={setFiscal}
-                        />
-                    </div>
-                </div>
-
-                {/* Rubro IT */}
-                <div className="gap-4">
-                    <div>
-                        <CustomDropdown
-                        label="Rubro IT"
-                        options={rubros}
-                        required={true}
-                        value={rubro}
-                        onChange={setRubro}
-                        />
-                    </div>
-                </div>
-
-                {/* Provincia */}
-                <div className="gap-4">
-                    <div>
-                        <CustomDropdown
-                        label="Provincia"
-                        options={provincias}
-                        required={true}
-                        value={provincia}
-                        onChange={setProvincia}
-                        />
-                    </div>
-                </div>
-
-                {/* Localidad */}
-
-                    <FormField 
-                    label="Localidad"
-                    type="text"
-                    name=""
-                    value={formData.localidad}
-                    onChange={handleChange}
-                    error={errors.localida}
-                    required
-                />
-
-                {/* Número de calle de la empresa */}
-
-                    <FormField 
-                    label="Número"
-                    type="number"
-                    name="number"
-                    value={formData.number}
-                    onChange={handleChange}
-                    error={errors.number}
-                    required
-                />
-
-
-                {/* Calle de la empresa */}
-
-                    <FormField 
-                    label="Calle"
-                    type="text"
-                    name="street"
-                    value={formData.street}
-                    onChange={handleChange}
-                    error={errors.street}
-                    required
-                />
-
-
-                {/* Código postal */}
-
-                    <FormField 
-                    label="Código postal"
-                    type="text"
-                    name="postal"
-                    value={formData.postal}
-                    onChange={handleChange}
-                    error={errors.postal}
-                    required
-                />
-
-                {/* Modalidad de trabajo */}
-
-                    <CustomDropdown
-                    label="Modalidad de trabajo"
-                    options={modalidades}
-                    required={true}
-                    value={modalidad}
-                    onChange={setModalidad}
+                        label="Nombre de la empresa"
+                        type="text"
+                        name="companyName"
+                        value={formData.companyName}
+                        onChange={handleChange}
+                        error={errors.companyName}
+                        required
                     />
 
-                {/* Correo electrónico de la empresa */}
+                    {/* Razón social */}
 
-                    <FormField 
-                    label="Correo electrónico empresarial"
-                    type="email"
-                    name="emailEmpresa"
-                    value={formData.emailEmpresa}
-                    onChange={handleChange}
-                    error={errors.emailEmpresa}
-                    required
-                />
+                        <FormField 
+                        label="Razón social"
+                        type="text"
+                        name="social"
+                        value={formData.social}
+                        onChange={handleChange}
+                        error={errors.social}
+                        required
+                    />
 
-
-                {/* Descripción de la empresa */}
-
-                    <FormField 
-                    label="Descripción de la empresa"
-                    type="text"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    error={errors.description}
-                    required
-                />
-
-
-                {/* Logo de la empresa */}
-
-                    <FormField 
-                    label="Logo"
-                    type="file"
-                    name="logo"
-                    value={formData.logo}
-                    onChange={handleChange}
-                    error={errors.logo}
-                />
-
-                {/* Sitio web */}
-
-                    <FormField 
-                    label="Sitio web"
-                    placeholder="https://tusitioweb.com"
-                    type="url"
-                    name="webSite"
-                    value={formData.webSite}
-                    onChange={handleChange}
-                    error={errors.webSite}
-                />
-
-
-                {/* Cantidad de empleados */}
-                <div className="gap-4">
-                    <div>
-                        <CustomDropdown
-                        label="Cantidad de empleados"
-                        options={cantidades}
-                        required={true}
-                        value={cantidad}
-                        onChange={setCantidad}
-                        />
+                    {/* Condición fiscal */}
+                    <div className="gap-4">
+                        <div>
+                            <CustomDropdown 
+                            label="Condición Fiscal"
+                            options={condFiscal}
+                            required={true}
+                            value={fiscal}
+                            onChange={setFiscal}
+                            />
+                        </div>
                     </div>
-                </div>
 
-            </form>
-            
-            <h2 className="text-2xl font-semibold text-center m-10">Información de usuario</h2>
+                    {/* Rubro IT */}
+                    <div className="gap-4">
+                        <div>
+                            <CustomDropdown
+                            label="Rubro IT"
+                            options={rubros}
+                            required={true}
+                            value={rubro}
+                            onChange={setRubro}
+                            />
+                        </div>
+                    </div>
 
-            {/* Formulario de creación de cuenta de empresa */}
+                    {/* Provincia */}
+                    <div className="gap-4">
+                        <div>
+                            <CustomDropdown
+                            label="Provincia"
+                            options={provincias}
+                            required={true}
+                            value={provincia}
+                            onChange={setProvincia}
+                            />
+                        </div>
+                    </div>
 
-            <form className="space-y-5">
-                <div className="grid md:grid-cols-2 gap-4">
-                    {/* Nombre de usuario */}
-                    <FormField 
-                        label="Nombre(s)"
+                    {/* Localidad */}
+
+                        <FormField 
+                        label="Localidad"
                         type="text"
-                        name="firstName"
-                        icon={UserIcon}
-                        value={formData.firstName}
+                        name="localidad"
+                        value={formData.localidad}
                         onChange={handleChange}
-                        error={errors.firstName}
+                        error={errors.localidad}
                         required
-                    />  
+                    />
 
-                    {/* Apellido de usuario */}
-                    <FormField 
-                        label="Apellido(s)"
+                    {/* Número de calle de la empresa */}
+
+                        <FormField 
+                        label="Número"
+                        type="number"
+                        name="number"
+                        value={formData.number}
+                        onChange={handleChange}
+                        error={errors.number}
+                        required
+                    />
+
+
+                    {/* Calle de la empresa */}
+
+                        <FormField 
+                        label="Calle"
                         type="text"
-                        name="lastName"
-                        icon={UserIcon}
-                        value={formData.lastName}
+                        name="street"
+                        value={formData.street}
                         onChange={handleChange}
-                        error={errors.lastName}
+                        error={errors.street}
                         required
-                    />  
+                    />
 
-                    {/* Email */}
-                    <FormField 
-                        label="Correo electrónico"
+
+                    {/* Código postal */}
+
+                        <FormField 
+                        label="Código postal"
+                        type="text"
+                        name="postal"
+                        value={formData.postal}
+                        onChange={handleChange}
+                        error={errors.postal}
+                        required
+                    />
+
+                    {/* Modalidad de trabajo */}
+
+                        <CustomDropdown
+                        label="Modalidad de trabajo"
+                        options={modalidades}
+                        required={true}
+                        value={modalidad}
+                        onChange={setModalidad}
+                        />
+
+                    {/* Correo electrónico de la empresa */}
+
+                        <FormField 
+                        label="Correo electrónico empresarial"
                         type="email"
-                        name="email"
-                        icon={MailIcon}
-                        value={formData.email}
+                        name="emailEmpresa"
+                        value={formData.emailEmpresa}
                         onChange={handleChange}
-                        error={errors.email}
+                        error={errors.emailEmpresa}
                         required
                     />
 
-                    {/* Teléfono */}
-                    <FormField 
-                        label="Teléfono (celular)"
-                        type="tel"
-                        name="phone"
-                        icon={PhoneIcon}
-                        value={formData.phone}
-                        onChange={handleChange}
-                        error={errors.phone}
-                    />
 
-                    {/* Contraseñas */}
-                    <FormField 
-                        label="Contraseña"
-                        type={showPassword ? "text" : "password" }
-                        name="password"
-                        icon={LockIcon}
-                        value={formData.password}
+                    {/* Descripción de la empresa */}
+
+                        <FormField 
+                        label="Descripción de la empresa"
+                        type="text"
+                        name="description"
+                        value={formData.description}
                         onChange={handleChange}
-                        error={errors.password}
-                        showPasswordToggle={true}
-                        showPassword={showPassword}
-                        onTogglePassword={() => setShowPassword(!showPassword)}
+                        error={errors.description}
                         required
                     />
 
-                     <FormField 
-                        label="Confirmar contraseña"
-                        type={showConfirmPassword ? "text" : "password" }
-                        name="confirmPassword"
-                        icon={LockIcon}
-                        value={formData.confirmPassword}
+
+                    {/* Logo de la empresa */}
+
+                        <FormField 
+                        label="Logo"
+                        type="file"
+                        name="logo"
+                        value={formData.logo}
                         onChange={handleChange}
-                        error={errors.confirmPassword}
-                        showPasswordToggle={true}
-                        showPassword={showConfirmPassword}
-                        onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)}
-                        required
-                    />                   
-
-                </div>
-
-                {/* Campos obligatorios */}
-
-                    <p className="text-sm text-gray-600 font-semibold">
-                        <span className="text-red-500 mr-1">*</span>
-                        Campos requeridos
-                    </p>
-
-               {/* ------ Checkbox de términos y newsletter ----- */}
-
-                <div className="flex items-start">
-                    <input type="checkbox"
-                    id="terminos"
-                    checked={acceptTerms}
-                    onChange={(e) => setAcceptTerms(e.target.checked)}
-                    className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
+                        error={errors.logo}
                     />
-                    <label htmlFor="terminos" className="ml-2 text-sm text-gray-500">
-                        Acepto los términos y condiciones, Política de Privacidad, Condiciones de Contratación, Política de Gestión de Calidad y Política de manejo de datos
-                    </label>
-                </div>
 
-                <div className="flex items-start mt-0.5">
-                    <input type="checkbox"
-                    id="promotions"
-                    checked={acceptPromotions}
-                    onChange={(e) => setAcceptPromotions(e.target.checked)}
-                    className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
+                    {/* Sitio web */}
+
+                        <FormField 
+                        label="Sitio web"
+                        placeholder="https://tusitioweb.com"
+                        type="url"
+                        name="webSite"
+                        value={formData.webSite}
+                        onChange={handleChange}
+                        error={errors.webSite}
                     />
-                    <label htmlFor="promotions" className="ml-2 text-sm text-gray-500">
-                        Acepto recibir novedades y promociones
-                    </label>
-                </div>
 
-                {/* Enlace a iniciar sesión */}
-                <div className="text-center">
-                    <span className="text-gray-600">
-                        ¿Ya tienes una cuenta? 
-                    </span>
-                    <button>
-                        <NavLink to="/index-empresas" className="text-[#4D1874] font-semibold hover:underline ml-1 transition">
-                            Inicia sesión
-                        </NavLink>
+
+                    {/* Cantidad de empleados */}
+                    <div className="gap-4">
+                        <div>
+                            <CustomDropdown
+                            label="Cantidad de empleados"
+                            options={cantidades}
+                            required={true}
+                            value={cantidad}
+                            onChange={setCantidad}
+                            />
+                        </div>
+                    </div>
+
+                </form>
+                
+                <h2 className="text-2xl font-semibold text-center m-10">Información de usuario</h2>
+
+                {/* Formulario de creación de cuenta de empresa */}
+
+                <form /*onSubmit={handleSubmit}*/ className="space-y-5">
+                    <div className="grid md:grid-cols-2 gap-4">
+                        {/* Nombre de usuario */}
+                        <FormField 
+                            label="Nombre(s)"
+                            type="text"
+                            name="firstName"
+                            icon={UserIcon}
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            error={errors.firstName}
+                            required
+                        />  
+
+                        {/* Apellido de usuario */}
+                        <FormField 
+                            label="Apellido(s)"
+                            type="text"
+                            name="lastName"
+                            icon={UserIcon}
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            error={errors.lastName}
+                            required
+                        />  
+
+                        {/* Email */}
+                        <FormField 
+                            label="Correo electrónico"
+                            type="email"
+                            name="email"
+                            icon={MailIcon}
+                            value={formData.email}
+                            onChange={handleChange}
+                            error={errors.email}
+                            required
+                        />
+
+                        {/* Teléfono */}
+                        <FormField 
+                            label="Teléfono"
+                            type="tel"
+                            name="phone"
+                            icon={PhoneIcon}
+                            value={formData.phone}
+                            onChange={handleChange}
+                            error={errors.phone}
+                        />
+
+                        {/* Contraseñas */}
+                        <FormField 
+                            label="Contraseña"
+                            type={showPassword ? "text" : "password" }
+                            name="password"
+                            icon={LockIcon}
+                            value={formData.password}
+                            onChange={handleChange}
+                            error={errors.password}
+                            showPasswordToggle={true}
+                            showPassword={showPassword}
+                            onTogglePassword={() => setShowPassword(!showPassword)}
+                            required
+                        />
+
+                        <FormField 
+                            label="Confirmar contraseña"
+                            type={showConfirmPassword ? "text" : "password" }
+                            name="confirmPassword"
+                            icon={LockIcon}
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            error={errors.confirmPassword}
+                            showPasswordToggle={true}
+                            showPassword={showConfirmPassword}
+                            onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)}
+                            required
+                        />                   
+
+                    </div>
+
+                    {/* Campos obligatorios */}
+
+                        <p className="text-sm text-gray-600 font-semibold">
+                            <span className="text-red-500 mr-1">*</span>
+                            Campos requeridos
+                        </p>
+
+                {/* ------ Checkbox de términos y newsletter ----- */}
+
+                    <div className="flex items-start">
+                        <input type="checkbox"
+                        id="terminos"
+                        checked={acceptTerms}
+                        onChange={(e) => setAcceptTerms(e.target.checked)}
+                        className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
+                        />
+                        <label htmlFor="terminos" className="ml-2 text-sm text-gray-500">
+                            Acepto los términos y condiciones, Política de Privacidad, Condiciones de Contratación, Política de Gestión de Calidad y Política de manejo de datos
+                        </label>
+                    </div>
+
+                    <div className="flex items-start mt-0.5">
+                        <input type="checkbox"
+                        id="promotions"
+                        checked={acceptPromotions}
+                        onChange={(e) => setAcceptPromotions(e.target.checked)}
+                        className="mt-1 rounded border-gray-300 text-[#4D1874] focus:ring-[#4D1874]"
+                        />
+                        <label htmlFor="promotions" className="ml-2 text-sm text-gray-500">
+                            Acepto recibir novedades y promociones
+                        </label>
+                    </div>
+
+                    {/* Enlace a iniciar sesión */}
+                    <div className="text-center">
+                        <span className="text-gray-600">
+                            ¿Ya tienes una cuenta? 
+                        </span>
+                        <button>
+                            <NavLink to="/index-empresas" className="text-[#4D1874] font-semibold hover:underline ml-1 transition">
+                                Inicia sesión
+                            </NavLink>
+                        </button>
+                    </div>
+
+                    {/* Botón de envío de formulario */}
+                    <button type="submit" className="w-full bg-[#4D1874] text-white font-semibold py-3 px-6 rounded-full hover:bg-[#3b115a] transition"
+                    >
+                        Crear cuenta
                     </button>
-                </div>
 
-                {/* Botón de envío de formulario */}
-                <button type="submit" className="w-full bg-[#4D1874] text-white font-semibold py-3 px-6 rounded-full hover:bg-[#3b115a] transition"
-                >
-                    Crear cuenta
-                </button>
+                    {/* Sección de redes sociales */}
+                    <SocialSection />
 
-                {/* Sección de redes sociales */}
-                <SocialSection />
-
-            </form>
+                </form>
 
 
+            </div>            
         </div>
+
         </>
     )
 }

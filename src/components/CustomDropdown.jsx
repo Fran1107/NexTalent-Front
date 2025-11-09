@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 export default function CustomDropdown({ 
   label, 
+  name="",
   options = [], 
   placeholder = 'Selecciona una opción',
   required = false,
