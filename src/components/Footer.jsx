@@ -14,11 +14,11 @@ export default function Footer() {
                 </div>
                 <div className="border-y-2 border-[#4D1874] py-4">
                     <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-4 place-items-center font-bold text-center">
-                        <li className='px-2'><NavLink to="/about" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Inicio</NavLink></li>
-                        <li className='px-2'><NavLink to="/about" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Quienes somos</NavLink></li>
-                        <li className='px-2'><NavLink to="/about" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Preguntas frecuentes</NavLink></li>
-                        <li className='px-2'><NavLink to="/about" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Oportunidades</NavLink></li>
-                        <li className='px-2'><NavLink to="/about" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Pasantías</NavLink></li>
+                        <li className='px-2'><NavLink to="/" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Inicio</NavLink></li>
+                        <li className='px-2'><NavLink to="/quienessomos" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Quienes somos</NavLink></li>
+                        <li className='px-2'><NavLink to="/preguntas" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Preguntas frecuentes</NavLink></li>
+                        <li className='px-2'><NavLink to="/oportunidades" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Oportunidades</NavLink></li>
+                        <li className='px-2'><NavLink to="/pasantias" className="block whitespace-nowrap hover:text-[#4D1874] transition-transform transform hover:scale-125 duration-300">Pasantías</NavLink></li>
                     </ul>   
                 </div>  
             </div>
