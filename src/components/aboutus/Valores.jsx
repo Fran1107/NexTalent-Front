@@ -1,11 +1,11 @@
-//import React from "react";
+import React from "react";
 
 const Valores = () => {
   const valores = [
     {
       titulo: "Compromiso",
       texto:
-        "trabajamos con responsabilidad para brindar un servicio que genere impacto positivo en la vida de los usuarios.",
+        "trabajamos con responsabilidad para brindar un servicio que genere un impacto positivo en los usuarios.",
     },
     {
       titulo: "Innovación",
@@ -25,14 +25,14 @@ const Valores = () => {
   ];
 
   return (
-    <section className="bg-[#F7F4FA] py-9 px-4 flex flex-col items-center font-bold">
-      <div className="max-w-3xl w-full space-y-6">
+    <section className="bg-[#4D1874] py-20 px-50 font-bold text-2xl">
+      <div className="flex overflow-hidden space-x-15">
         {valores.map((valor, index) => (
           <div
             key={index}
-            className="bg-gradient-to-r from-[#4D1874] to-[#8E2DE2] p-[2px] rounded-2xl shadow-xl transition-transform duration-500 hover:scale-105"
+            className="shrink-0 w-[280px] bg-linear-to rounded-2xl shadow-xl transition-transform duration-500 hover:scale-105"
           >
-            <div className="bg-white rounded-2xl px-6 py-4 text-gray-800 text-center">
+            <div className="bg-white rounded-2xl px-1 py-5 text-gray-800 text-center">
               <p>
                 <span className="font-bold text-[#4D1874]">
                   {valor.titulo}:
