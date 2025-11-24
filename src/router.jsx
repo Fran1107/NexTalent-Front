@@ -8,6 +8,8 @@ import RegisterView from "./auth/RegisterView"
 import IndexEmpresasView from "./views/home/IndexEmpresasView"
 import RegisterFormView from "./auth/RegisterFormView"
 import RegisterFromEmpresaView from "./auth/RegisterFormEmpresaView"
+import MiPerfilView from "./views/pasantes/MiPerfilView"
+import PerfilPublicoView from "./views/pasantes/PerfilPublicoView"
 
 export default function Router() {
     return (
@@ -20,6 +22,13 @@ export default function Router() {
                     <Route path="auth/login" element={<LoginView />} />
                     <Route path="auth/register" element={<RegisterView />} />
                     <Route path="auth/register/form" element={<RegisterFormView /> } />
+                    {/* --- NUEVAS RUTAS DE PASANTES --- */}
+                    
+                    {/* Ruta Privada (Debería estar protegida, pero por ahora la ponemos aquí) */}
+                    <Route path="mi-perfil" element={<MiPerfilView />} />
+
+                    {/* Ruta Pública (Cualquiera puede verla con el ID) */}
+                    <Route path="pasante/:id" element={<PerfilPublicoView />} />
                     {/* Rutas para empresas */}
                     <Route path="index-empresas" element={<IndexEmpresasView />} />
                     <Route path="auth/login-empresas" element={<LoginEmpresa />} />
