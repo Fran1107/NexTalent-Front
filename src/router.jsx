@@ -10,6 +10,7 @@ import RegisterFormView from "./auth/RegisterFormView"
 import RegisterFromEmpresaView from "./auth/RegisterFormEmpresaView"
 import MiPerfilView from "./views/pasantes/MiPerfilView"
 import PerfilPublicoView from "./views/pasantes/PerfilPublicoView"
+import FavoritosView from "./views/pasantes/FavoritosView"
 
 export default function Router() {
     return (
@@ -26,6 +27,7 @@ export default function Router() {
                     
                     {/* Ruta Privada (Debería estar protegida, pero por ahora la ponemos aquí) */}
                     <Route path="mi-perfil" element={<MiPerfilView />} />
+                    <Route path="mi-perfil/favoritos" element={<FavoritosView/>} />
 
                     {/* Ruta Pública (Cualquiera puede verla con el ID) */}
                     <Route path="pasante/:id" element={<PerfilPublicoView />} />
