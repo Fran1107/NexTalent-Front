@@ -48,3 +48,14 @@ export async function uploadCV(formData) {
         throw new Error("Error al subir CV");
     }
 }
+
+// --- GET: Favoritos de pasante ---
+export async function getFavoritos() {
+    try {
+        const { data } = await api.get("/pasantes/favoritos/my");
+        return data;
+    } catch (error) {
+        if (isAxiosError(error)) throw error.response?.data;
+        throw new Error("Error al obtener favoritos");
+    }
+}
