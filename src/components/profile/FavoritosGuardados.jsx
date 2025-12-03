@@ -38,12 +38,15 @@ export default function FavoritosGuardados() {
             ) : (
                 // Iterar sobre los favoritos y renderizar un CardFavorito por cada uno
                 favoritos.map(fav => (
-                    <div key={fav.id} className="p-2">
+                    <div key={fav.id} className="p-2 mx-auto w-screen h-[50vh]">
                         <CardFavorito 
                             data={{
                                 titulo: fav.titulo, // Título de la pasantía
-                                empresa: fav.empresa, // Nombre de la empresa
-                                logoUrl: `${BASE_URL}/${fav.logo}` // URL completa del logo
+                                empresa: fav.empresaId, // Nombre de la empresa
+                                // logoUrl: `${BASE_URL}/${fav.logo}` // URL completa del logo
+                                descripcion: fav.descripcion,
+                                estado: fav.estado,
+                                modalidad: fav.modalidad
                             }} 
                         />
                     </div>
