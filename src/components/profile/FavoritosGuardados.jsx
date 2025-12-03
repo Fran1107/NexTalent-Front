@@ -29,29 +29,32 @@ export default function FavoritosGuardados() {
     // Renderizado del componente
     return (
         <div className="max-w-3xl mx-auto p-6">
-            {/* Título de la sección */}
-            <h1 className="text-2xl font-bold mb-6">Mis favoritos</h1>
 
-            {/* Condicional: mostrar mensaje si no hay favoritos */}
-            {favoritos.length === 0 ? (
-                <p>No tenés favoritos agregados todavía</p>
-            ) : (
-                // Iterar sobre los favoritos y renderizar un CardFavorito por cada uno
-                favoritos.map(fav => (
-                    <div key={fav.id} className="p-2 mx-auto w-screen h-[50vh]">
-                        <CardFavorito 
-                            data={{
-                                titulo: fav.titulo, // Título de la pasantía
-                                empresa: fav.empresaId, // Nombre de la empresa
-                                // logoUrl: `${BASE_URL}/${fav.logo}` // URL completa del logo
-                                descripcion: fav.descripcion,
-                                estado: fav.estado,
-                                modalidad: fav.modalidad
-                            }} 
-                        />
-                    </div>
-                ))
-            )}
+          {/* Contenido principal */}
+          <main className="flex-1">
+            <div className="bg-white rounded-lg shadow-sm">
+              <div className="border-b border-gray-200 px-6 py-4">
+                <h1 className="text-2xl font-bold text-gray-900">Mis favoritos</h1>
+                <p className="text-gray-600 mt-1">{favoritos.length} resultados</p>
+              </div>
+
+              <div className="p-6">
+                {favoritos.length === 0 ? (
+                  <p className="text-gray-500 text-center py-12">
+                    No tenés favoritos agregados todavía
+                  </p>
+                ) : (
+                  favoritos.map(fav => (
+                    <CardFavorito 
+                      key={fav._id}
+                      data={fav}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+          </main>
+
         </div>
     )
 }
