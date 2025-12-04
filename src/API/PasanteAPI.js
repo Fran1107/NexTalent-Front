@@ -52,10 +52,32 @@ export async function uploadCV(formData) {
 // --- GET: Favoritos de pasante ---
 export async function getFavoritos() {
     try {
-        const { data } = await api.get("/pasantes/favoritos/my");
+        const { data } = await api.get("/pasantes/favoritos");
         return data;
     } catch (error) {
         if (isAxiosError(error)) throw error.response?.data;
         throw new Error("Error al obtener favoritos");
     }
+}
+
+// --- POST: Guardar favoritos del pasante ---
+export async function addFavorito(pasantiaId) {
+    try {
+        const { data } = await api.post(`/pasantes/favoritos/${pasantiaId}`)
+        return data
+    } catch (error) {
+        if (isAxiosError(error)) throw error.response?.data
+        throw new Error("Error al guardar favorito")
+    }
+}
+
+// --- DELETE: Remover favorito ---
+export async function removeFavorito(pasantiaId) {
+  try {
+    const { data } = await api.delete(`/pasantes/favoritos/${pasantiaId}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error al remover favorito");
+  }
 }
