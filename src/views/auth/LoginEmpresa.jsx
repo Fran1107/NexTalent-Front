@@ -21,7 +21,7 @@ export default function LoginEmpresa() {
         try {
             setError('');
             await authenticateUser({ ...formData, userType: 'empresa' })
-            navigate('/dashboard-empresa')
+            navigate('/')
         } catch (err) {
             setError(err.message)
         }

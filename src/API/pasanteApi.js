@@ -3,6 +3,29 @@ import { isAxiosError } from 'axios';
 
 // --- FUNCIONES DE LECTURA Y CRUD GENERAL ---
 
+// --- GET: Obtener mi perfil ---
+export async function getMyProfile() {
+    try {
+        const { data } = await api.get('/pasantes/profile/me');
+        return data;
+    } catch (error) {
+        if (isAxiosError(error)) throw error.response.data;
+        throw new Error("Error desconocido");
+    }
+}
+
+// --- GET: Obtener perfil público (por ID) ---
+export async function getPublicProfile(id) {
+    try {
+        const { data } = await api.get(`/pasantes/${id}`);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error)) throw error.response.data;
+        throw new Error("Error desconocido");
+    }
+}
+
+
 // Obtener todos los pasantes 
 export async function getAllPasantes(params = {}) {
     try {

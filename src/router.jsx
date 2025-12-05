@@ -1,21 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-// Vistas Generales
 import IndexView from "./views/Home/IndexView";
 import AboutUsView from "./views/aboutus/AboutUsView";
 import IndexEmpresasView from "./views/home/IndexEmpresasView";
-
-// Vistas de Autenticación (Actualizado según tu imagen)
 import LoginView from "./views/auth/LoginView";
 import RegisterView from "./views/auth/RegisterView";
-import RegisterPasanteForm from "./views/auth/RegisterPasanteForm"; // Antes: RegisterFormView
-import RegisterEmpresaForm from "./views/auth/RegisterEmpresaForm"; // Antes: RegisterFromEmpresaView
-import LoginPasante from "./views/auth/LoginPasante"; // Nuevo
-import LoginEmpresa from "./views/auth/LoginEmpresa"; // Nuevo
-
-// Vistas de Pasantes
 import MiPerfilView from "./views/pasantes/MiPerfilView";
 import PerfilPublicoView from "./views/pasantes/PerfilPublicoView";
 import Onboarding from "./views/auth/Onboarding"
+import Layout from "./layouts/Layout";
 
 export default function Router() {
     return (
