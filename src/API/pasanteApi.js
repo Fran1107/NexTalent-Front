@@ -1,6 +1,8 @@
 import api from '../lib/axios';
 import { isAxiosError } from 'axios';
 
+// --- FUNCIONES DE LECTURA Y CRUD GENERAL ---
+
 // Obtener todos los pasantes 
 export async function getAllPasantes(params = {}) {
     try {
@@ -27,7 +29,9 @@ export async function getPasanteById(id) {
     }
 }
 
-// Obtener mi perfil (Requiere autenticación)
+// --- FUNCIONES DE PERFIL PROPIO (AUTH REQUERIDA) ---
+
+// Obtener mi perfil
 export async function getMyPasanteProfile() {
     try {
         const { data } = await api.get('/pasantes/profile/me');
@@ -40,7 +44,7 @@ export async function getMyPasanteProfile() {
     }
 }
 
-// Actualizar mi perfil (Requiere autenticación)
+// Actualizar mi perfil
 export async function updateMyPasanteProfile(formData) {
     try {
         const { data } = await api.put('/pasantes/profile/me', formData);
@@ -53,7 +57,7 @@ export async function updateMyPasanteProfile(formData) {
     }
 }
 
-// Eliminar mi cuenta (Requiere autenticación)
+// Eliminar mi cuenta
 export async function deleteMyPasanteAccount() {
     try {
         const { data } = await api.delete('/pasantes/profile/me');
@@ -66,44 +70,24 @@ export async function deleteMyPasanteAccount() {
     }
 }
 
+// --- NUEVAS FUNCIONES DE ARCHIVOS (Integradas del compañero) ---
 
-
-// --- GET: Obtener mi perfil ---
-export async function getMyProfile() {
-    try {
-        const { data } = await api.get('/pasantes/profile/me');
-        return data;
-    } catch (error) {
-        if (isAxiosError(error)) throw error.response.data;
-        throw new Error("Error desconocido");
-    }
-}
-
-// --- GET: Obtener perfil público (por ID) ---
-export async function getPublicProfile(id) {
-    try {
-        const { data } = await api.get(`/pasantes/${id}`);
-        return data;
-    } catch (error) {
-        if (isAxiosError(error)) throw error.response.data;
-        throw new Error("Error desconocido");
-    }
-}
-
-// --- POST: Subir Foto de Perfil ---
+// Subir Foto de Perfil
 export async function uploadFotoPerfil(formData) {
     try {
         const { data } = await api.post('/pasantes/upload-foto', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' } // Importante para archivos
+            headers: { 'Content-Type': 'multipart/form-data' }
         });
         return data;
     } catch (error) {
-        if (isAxiosError(error)) throw error.response.data;
-        throw new Error("Error al subir imagen");
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error || "Error al subir imagen");
+        }
+        throw error;
     }
 }
 
-// --- POST: Subir CV ---
+// Subir CV
 export async function uploadCV(formData) {
     try {
         const { data } = await api.post('/pasantes/upload-cv', formData, {
@@ -111,7 +95,9 @@ export async function uploadCV(formData) {
         });
         return data;
     } catch (error) {
-        if (isAxiosError(error)) throw error.response.data;
-        throw new Error("Error al subir CV");
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error || "Error al subir CV");
+        }
+        throw error;
     }
 }
