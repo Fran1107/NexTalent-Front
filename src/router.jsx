@@ -2,14 +2,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./layouts/Layout"
 import IndexView from "./views/Home/IndexView"
 import AboutUsView from "./views/aboutus/AboutUsView"
-import LoginView from "./auth/LoginView"
-import LoginEmpresa from "./auth/LoginEmpresaView"
-import RegisterView from "./auth/RegisterView"
+import LoginView from "./views/auth/LoginView"
+import RegisterView from "./views/auth/RegisterView"
 import IndexEmpresasView from "./views/home/IndexEmpresasView"
 import RegisterFormView from "./auth/RegisterFormView"
 import RegisterFromEmpresaView from "./auth/RegisterFormEmpresaView"
 import MiPerfilView from "./views/pasantes/MiPerfilView"
 import PerfilPublicoView from "./views/pasantes/PerfilPublicoView"
+import RegisterEmpresaForm from "./views/auth/RegisterEmpresaForm"
+import RegisterPasanteForm from "./views/auth/RegisterPasanteForm"
 
 export default function Router() {
     return (
@@ -31,8 +32,6 @@ export default function Router() {
                     <Route path="pasante/:id" element={<PerfilPublicoView />} />
                     {/* Rutas para empresas */}
                     <Route path="index-empresas" element={<IndexEmpresasView />} />
-                    <Route path="auth/login-empresas" element={<LoginEmpresa />} />
-                    <Route path="auth/register/form-empresas" element={<RegisterFromEmpresaView />} />
                 </Route>
             </Routes>
         </BrowserRouter>
