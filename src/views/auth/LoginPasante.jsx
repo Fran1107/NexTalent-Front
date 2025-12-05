@@ -19,27 +19,48 @@ export default function LoginPasante() {
     const onSubmit = async (formData) => {
         try {
             setError('');
-            // Aquí inyectamos el userType automáticamente
             await authenticateUser({ ...formData, userType: 'pasante' });
-            // Redireccionar o guardar estado global aquí
             window.location.href = '/';
         } catch (err) {
             setError(err.message);
         }
     };
 
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:3000/api/auth/google';
+    };
+
+    const handleLinkedinLogin = () => {
+        window.location.href = 'http://localhost:3000/api/auth/linkedin';
+    };
+
     return (
         <div className="flex w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[600px]">
 
-            {/* LADO IZQUIERDO - FORMULARIO */}
+            {/* LADO IZQUIERDO */}
             <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                 <h2 className="text-3xl font-bold text-center mb-8">Inicia sesión</h2>
 
                 <div className="mb-6">
                     <p className="text-center text-gray-600 mb-4">Ingresá a tu cuenta</p>
-                    <button type="button" className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-full p-3 hover:bg-gray-50 transition font-medium">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-6 h-6" alt="Google" />
+                    <button
+                        type="button"
+                        onClick={handleGoogleLogin}
+                        className=" w-full flex items-center justify-center gap-2 border border-gray-300 rounded-full p-3 bg-white hover:bg-gray-300 hover:border-purple-500 transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-0.5 font-medium">
+                        <img
+                            src="https://www.svgrepo.com/show/475656/google-color.svg"
+                            className="w-6 h-6"
+                            alt="Google"
+                        />
                         Iniciar sesión con Google
+                    </button>
+                    <button 
+                        type="button" 
+                        onClick={handleLinkedinLogin}
+                        className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-full p-3 hover:bg-blue-50 transition font-medium mt-3"
+                    >
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" className="w-6 h-6" alt="LinkedIn" />
+                        Iniciar sesión con LinkedIn
                     </button>
                 </div>
 
@@ -62,7 +83,7 @@ export default function LoginPasante() {
                         />
                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                     </div>
-                    
+
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
                         <div className="relative">
@@ -101,7 +122,7 @@ export default function LoginPasante() {
                 </div>
             </div>
 
-            {/* LADO DERECHO - VISUAL */}
+            {/* LADO DERECHO  */}
             <RightLoginCard
                 image={pasanteImage}
                 titleLine1="¡Te damos la bienvenida a"

@@ -7,6 +7,7 @@ import RegisterView from "./views/auth/RegisterView"
 import IndexEmpresasView from "./views/home/IndexEmpresasView"
 import RegisterEmpresaForm from "./views/auth/RegisterEmpresaForm"
 import RegisterPasanteForm from "./views/auth/RegisterPasanteForm"
+import Onboarding from "./views/auth/Onboarding"
 
 export default function Router() {
     return (
@@ -20,6 +21,7 @@ export default function Router() {
                     <Route path="auth/register" element={<RegisterView />} />
                     {/* Rutas para empresas */}
                     <Route path="index-empresas" element={<IndexEmpresasView />} />
+                    <Route path="onboarding" element={<Onboarding />} />
                 </Route>
             </Routes>
         </BrowserRouter>

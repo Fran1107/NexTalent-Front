@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { registerPasante } from '../../API/AuthAPI';
 
 const RegisterPasanteForm = () => {
-  // 'register' conecta los inputs, 'handleSubmit' maneja el envío, 'formState' trae los errores.
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
 
-  // Observamos la contraseña para validar que coincida con la confirmación
   const password = watch("password");
 
   const onSubmit = async (data) => {
@@ -18,14 +16,10 @@ const RegisterPasanteForm = () => {
         alert("Las contraseñas no coinciden");
         return;
       }
-
-      // Eliminamos confirmPassword antes de enviar al back porque el back no lo espera
       const { confirmPassword, ...dataToSend } = data;
 
       console.log("Enviando al backend...", dataToSend);
       await registerPasante(dataToSend);
-      
-      alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
       navigate('/auth/login');
       
     } catch (error) {
@@ -37,14 +31,12 @@ const RegisterPasanteForm = () => {
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-        {/* Nombre */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Nombre(s) *</label>
           <input type="text" {...register("nombre", { required: "El nombre es obligatorio" })}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm bg-gray-50" />
             {errors.nombre && <span className="text-red-500 text-xs">{errors.nombre.message}</span>}
         </div>
-        {/* Apellido */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Apellido(s) *</label>
           <input type="text" {...register("apellido", { required: "El apellido es obligatorio" })}
@@ -52,7 +44,6 @@ const RegisterPasanteForm = () => {
           {errors.apellido && <span className="text-red-500 text-xs">{errors.apellido.message}</span>}
         </div>
 
-        {/* Email */}
         <div className="sm:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Correo electrónico *</label>
           <input type="email" {...register("email", { 
@@ -63,7 +54,6 @@ const RegisterPasanteForm = () => {
           {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
         </div>
 
-        {/* Teléfono */}
         <div className="sm:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Teléfono (Celular) *</label>
           <div className="mt-1 flex rounded-md shadow-sm">
@@ -76,7 +66,6 @@ const RegisterPasanteForm = () => {
           </div>
         </div>
 
-        {/* Contraseña */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Contraseña *</label>
           <input type="password" {...register("password", { 
@@ -86,7 +75,6 @@ const RegisterPasanteForm = () => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm bg-gray-50" />
           {errors.password && <span className="text-red-500 text-xs">{errors.password.message}</span>}
         </div>
-        {/* Confirmar Contraseña */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Confirmar contraseña *</label>
           <input type="password" {...register("confirmPassword", { 
@@ -97,7 +85,6 @@ const RegisterPasanteForm = () => {
           {errors.confirmPassword && <span className="text-red-500 text-xs">{errors.confirmPassword.message}</span>}
         </div>
 
-        {/* Provincia y Localidad */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Provincia *</label>
           <input type="text" {...register("provincia", { required: "Provincia obligatoria" })} placeholder="Ej: Salta"
@@ -109,21 +96,18 @@ const RegisterPasanteForm = () => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm bg-gray-50 placeholder:text-gray-400" />
         </div>
 
-        {/* Fecha Nacimiento */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Fecha de nacimiento *</label>
           <input type="date" {...register("fechaNacimiento", { required: "Fecha obligatoria" })}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm bg-gray-50" />
         </div>
         
-        {/* Carrera */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Carrera / Profesión *</label>
           <input type="text" {...register("carrera", { required: "Carrera obligatoria" })} placeholder="Ej: Ing. en Sistemas"
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm bg-gray-50 placeholder:text-gray-400" />
         </div>
 
-        {/* LinkedIn */}
         <div className="sm:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Perfil de LinkedIn</label>
           <input type="url" {...register("linkedinUrl")} placeholder="https://linkedin.com/in/usuario"

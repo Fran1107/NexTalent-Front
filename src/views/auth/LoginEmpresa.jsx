@@ -1,4 +1,3 @@
-// components/auth/LoginEmpresa.jsx
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,10 +6,12 @@ import { authenticateUser } from '../../API/AuthAPI';
 import { Eye, EyeOff } from 'lucide-react';
 import RightLoginCard from './RightLoginCard';
 import empresaImage from '../../assets/img/imagen-ingreso-empresas.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginEmpresa() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(loginSchema)
@@ -19,12 +20,15 @@ export default function LoginEmpresa() {
     const onSubmit = async (formData) => {
         try {
             setError('');
-            // Inyectamos userType: 'empresa'
-            await authenticateUser({ ...formData, userType: 'empresa' });
-            window.location.href = '/dashboard-empresa';
+            await authenticateUser({ ...formData, userType: 'empresa' })
+            navigate('/dashboard-empresa')
         } catch (err) {
-            setError(err.message);
+            setError(err.message)
         }
+    };
+
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:3000/api/auth/google';
     };
 
     return (
@@ -36,7 +40,9 @@ export default function LoginEmpresa() {
 
                 <div className="mb-6">
                     <p className="text-center text-gray-600 mb-4">Encontrá el perfil que buscás</p>
-                    <button type="button" className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-full p-3 hover:bg-gray-50 transition font-medium">
+                    <button type="button" 
+                            onClick={handleGoogleLogin}
+                            className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-full p-3 hover:bg-gray-50 transition font-medium">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-6 h-6" alt="Google" />
                         Iniciar sesión con Google
                     </button>

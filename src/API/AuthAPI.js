@@ -89,3 +89,18 @@ export async function getCurrentUser() {
         throw error;
     }
 }
+
+// Finaliza el registro híbrido (Google) asignando el rol y datos faltantes
+export async function completeGoogleOnboarding(formData) {
+    try {
+        const { data } = await api.put('/auth/google/complete-profile', formData, {
+            withCredentials: true,
+        });
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error || 'Error al completar el perfil');
+        }
+        throw error;
+    }
+}

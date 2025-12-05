@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { registerEmpresa } from '../../API/AuthAPI';
 
 const RegisterEmpresaForm = () => {
-    // Inicializamos useForm
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const navigate = useNavigate();
     const password = watch("password");
@@ -15,14 +14,8 @@ const RegisterEmpresaForm = () => {
                 alert("Las contraseñas no coinciden");
                 return;
             }
-
-            // Preparamos los datos, quitando confirmPassword
             const { confirmPassword, ...dataToSend } = data;
-
-            console.log("Enviando datos empresa...", dataToSend);
             await registerEmpresa(dataToSend);
-
-            alert("¡Cuenta de empresa creada exitosamente!");
             navigate('/auth/login');
 
         } catch (error) {
@@ -35,7 +28,6 @@ const RegisterEmpresaForm = () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
 
-                {/* Identidad de la Empresa */}
                 <div className="sm:col-span-2">
                     <label className="block text-sm font-medium text-gray-700">Nombre comercial de la empresa *</label>
                     <input type="text" {...register("nombre", { required: "El nombre es obligatorio" })}
@@ -55,7 +47,6 @@ const RegisterEmpresaForm = () => {
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 focus:ring-purple-500 focus:border-purple-500 sm:text-sm placeholder:text-gray-400" />
                 </div>
 
-                {/* Ubicación (Desglosada según el modelo Empresa.js) */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Provincia *</label>
                     <input type="text" {...register("provincia", { required: "Provincia obligatoria" })}
@@ -85,7 +76,6 @@ const RegisterEmpresaForm = () => {
                     </div>
                 </div>
 
-                {/* Modalidad de Trabajo */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Modalidad de trabajo *</label>
                     <select {...register("modalidadTrabajo", { required: "Selecciona una modalidad" })}
@@ -111,7 +101,6 @@ const RegisterEmpresaForm = () => {
                     </select>
                 </div>
 
-                {/* Contacto y Cuenta */}
                 <div className="sm:col-span-2">
                     <label className="block text-sm font-medium text-gray-700">Sitio Web</label>
                     <input type="url" {...register("sitioWeb")} placeholder="https://miempresa.com"
@@ -144,7 +133,7 @@ const RegisterEmpresaForm = () => {
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 focus:ring-purple-500 focus:border-purple-500 sm:text-sm" />
                 </div>
 
-                <div></div> {/* Espaciador para grid */}
+                <div></div> 
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Contraseña *</label>

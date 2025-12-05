@@ -1,16 +1,12 @@
-// views/LoginView.jsx
 import { useState } from 'react';
 import LoginPasante from './LoginPasante';
 import LoginEmpresa from './LoginEmpresa';
 
 export default function LoginView() {
-  // Estado para controlar qué formulario mostrar. Default: 'pasante'
   const [userType, setUserType] = useState('pasante');
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      
-      {/* Contenedor principal limitado al ancho del formulario */}
       <div className="w-full max-w-5xl">
         
         {/* Switcher de Tipo de Usuario */}

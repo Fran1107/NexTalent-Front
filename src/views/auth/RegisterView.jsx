@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import RegisterPasanteForm from './RegisterPasanteForm'; // Asumiendo que separas los componentes
+import RegisterPasanteForm from './RegisterPasanteForm'; 
 import RegisterEmpresaForm from './RegisterEmpresaForm';
-import { Link } from 'react-router-dom'; // O tu método de navegación
+import { Link } from 'react-router-dom'; 
 
 const RegisterView = () => {
-    const [userType, setUserType] = useState('pasante'); // 'pasante' | 'empresa'
+    const [userType, setUserType] = useState('pasante'); 
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -24,7 +24,6 @@ const RegisterView = () => {
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-4xl">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
 
-                    {/* Switcher de Tipo de Usuario */}
                     <div className="flex w-full mb-6 bg-white rounded-full p-1 shadow-sm border border-gray-200">
                         <button
                             onClick={() => setUserType('pasante')}
@@ -46,7 +45,6 @@ const RegisterView = () => {
                         </button>
                     </div>
 
-                    {/* Form Render */}
                     <div className="transition-opacity duration-300">
                         {userType === 'pasante' ? <RegisterPasanteForm /> : <RegisterEmpresaForm />}
                     </div>
