@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getMyProfile, uploadCV, uploadFotoPerfil } from '../../API/PasanteAPI';
+import { getMyProfile, uploadCV, uploadFotoPerfil } from '../../API/pasanteApi';
 
 // Helper para obtener la URL base de las imágenes
 // Si tu API es http://localhost:4000/api, las imágenes están en http://localhost:4000/uploads

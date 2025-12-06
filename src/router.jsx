@@ -1,16 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Layout from "./layouts/Layout"
-import IndexView from "./views/Home/IndexView"
-import AboutUsView from "./views/aboutus/AboutUsView"
-import LoginView from "./auth/LoginView"
-import LoginEmpresa from "./auth/LoginEmpresaView"
-import RegisterView from "./auth/RegisterView"
-import IndexEmpresasView from "./views/home/IndexEmpresasView"
-import RegisterFormView from "./auth/RegisterFormView"
-import RegisterFromEmpresaView from "./auth/RegisterFormEmpresaView"
+import IndexView from "./views/Home/IndexView";
+import AboutUsView from "./views/aboutus/AboutUsView";
+import IndexEmpresasView from "./views/home/IndexEmpresasView";
+import LoginView from "./views/auth/LoginView";
+import RegisterView from "./views/auth/RegisterView";
 import Ofertas from "./pages/Ofertas" 
-import MiPerfilView from "./views/pasantes/MiPerfilView"
-import PerfilPublicoView from "./views/pasantes/PerfilPublicoView"
+import MiPerfilView from "./views/pasantes/MiPerfilView";
+import PerfilPublicoView from "./views/pasantes/PerfilPublicoView";
+import Onboarding from "./views/auth/Onboarding"
+import Layout from "./layouts/Layout";
 import FavoritosView from "./views/pasantes/FavoritosView"
 
 export default function Router() {
@@ -23,7 +21,7 @@ export default function Router() {
                     <Route path="quienessomos" element={<AboutUsView />} />
                     <Route path="auth/login" element={<LoginView />} />
                     <Route path="auth/register" element={<RegisterView />} />
-                    <Route path="auth/register/form" element={<RegisterFormView /> } />
+        
                     {/* --- NUEVAS RUTAS DE PASANTES --- */}
                     
                     {/* Ruta Privada (Debería estar protegida, pero por ahora la ponemos aquí) */}
@@ -34,8 +32,7 @@ export default function Router() {
                     <Route path="pasante/:id" element={<PerfilPublicoView />} />
                     
                     <Route path="index-empresas" element={<IndexEmpresasView />} />
-                    <Route path="auth/login-empresas" element={<LoginEmpresa />} />
-                    <Route path="auth/register/form-empresas" element={<RegisterFromEmpresaView />} />
+                    <Route path="onboarding" element={<Onboarding />} />
 
                     <Route path="ofertas" element={<Ofertas />} />
                 </Route>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPublicProfile } from '../../API/PasanteAPI';
+import { getMyPasanteProfile, getPublicProfile } from '../../API/pasanteApi';
 
 const BASE_URL = import.meta.env.VITE_API_URL.replace('/api', '');
 

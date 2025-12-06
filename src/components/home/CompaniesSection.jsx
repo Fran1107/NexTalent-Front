@@ -21,7 +21,7 @@ const CompanyLogo = ({ logoUrl, alt, customStyles }) => {
     return (
         // Se mantiene el tamaño fijo del contenedor y se añade un padding (p-2)
         // para asegurar que las imágenes no toquen los bordes.
-        <div className={`flex-shrink-0 w-28 h-20 sm:w-32 sm:h-24 md:w-36 md:h-28 flex items-center justify-center rounded-lg shadow-md transition-shadow hover:shadow-lg cursor-pointer ${customStyles}`}>
+        <div className={`shrink-0 w-28 h-20 sm:w-32 sm:h-24 md:w-36 md:h-28 flex items-center justify-center rounded-lg shadow-md transition-shadow hover:shadow-lg cursor-pointer ${customStyles}`}>
             
             {/* Ajuste Clave:
             Se envuelve la imagen en un div con padding (p-4) para centrarla mejor y 

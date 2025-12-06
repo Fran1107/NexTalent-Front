@@ -33,7 +33,7 @@ export default function Testimonials() {
                         >
                             <div className="flex items-center mb-6">
                                 {/* Iniciales: Círculo grande, púrpura (similar al tono de la imagen) */}
-                                <div className="w-12 h-12 bg-[#8B5CF6] rounded-full flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">
+                                <div className="w-12 h-12 bg-[#8B5CF6] rounded-full flex items-center justify-center text-white font-bold text-lg mr-4 shrink-0">
                                     {item.initial}
                                 </div>
                                 <div>
