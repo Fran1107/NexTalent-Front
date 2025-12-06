@@ -8,7 +8,6 @@ import RegisterView from "./auth/RegisterView"
 import IndexEmpresasView from "./views/home/IndexEmpresasView"
 import RegisterFormView from "./auth/RegisterFormView"
 import RegisterFromEmpresaView from "./auth/RegisterFormEmpresaView"
-
 export default function Router() {
     return (
         <BrowserRouter>
