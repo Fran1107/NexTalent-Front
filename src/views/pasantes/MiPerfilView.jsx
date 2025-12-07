@@ -1,24 +1,47 @@
 import { useEffect, useState } from 'react';
-import { getMyProfile, uploadCV, uploadFotoPerfil } from '../../API/pasanteApi';
-
-// Helper para obtener la URL base de las imágenes
-// Si tu API es http://localhost:4000/api, las imágenes están en http://localhost:4000/uploads
-const BASE_URL = import.meta.env.VITE_API_URL.replace('/api', ''); 
+import { useNavigate } from 'react-router-dom';
+import { getMyProfile, uploadCV, uploadFotoPerfil } from '../../API/pasanteApi.js';
+import api from '../../lib/axios'; // Importamos axios directo para el update de texto
 
 export default function MiPerfilView() {
-    const [perfil, setPerfil] = useState(null);
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    
+    // Estados para archivos
     const [fotoFile, setFotoFile] = useState(null);
     const [cvFile, setCvFile] = useState(null);
-    const [loading, setLoading] = useState(true);
+
+    // Estado para formulario de texto
+    const [formData, setFormData] = useState({
+        nombre: '',
+        apellido: '',
+        telefono: '',
+        provincia: '',
+        localidad: '',
+        linkedinUrl: '',
+        carrera: '',
+        sobreMi: '',
+        habilidades: '' // Lo manejaremos como string separado por comas para facilitar la edición
+    });
 
     useEffect(() => {
-        cargarPerfil();
+        cargarDatos();
     }, []);
 
-    const cargarPerfil = async () => {
+    const cargarDatos = async () => {
         try {
-            const data = await getMyProfile();
-            setPerfil(data.pasante);
+            const { pasante } = await getMyProfile();
+            setFormData({
+                nombre: pasante.nombre || '',
+                apellido: pasante.apellido || '',
+                telefono: pasante.telefono || '',
+                provincia: pasante.provincia || '',
+                localidad: pasante.localidad || '',
+                linkedinUrl: pasante.linkedinUrl || '',
+                carrera: pasante.carrera || '',
+                sobreMi: pasante.sobreMi || '',
+                habilidades: pasante.habilidades ? pasante.habilidades.join(', ') : ''
+            });
         } catch (error) {
             console.error(error);
         } finally {
@@ -26,103 +49,143 @@ export default function MiPerfilView() {
         }
     };
 
-    const handleSubirFoto = async (e) => {
-        e.preventDefault();
-        if (!fotoFile) return;
-        const formData = new FormData();
-        formData.append('fotoPerfil', fotoFile); // 'fotoPerfil' debe coincidir con el backend
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        // 1. Guardar Textos
         try {
-            await uploadFotoPerfil(formData);
-            alert('Foto actualizada!');
-            cargarPerfil(); // Recargar para ver cambios
+            // Convertir habilidades de string "React, Node" a array ["React", "Node"]
+            const datosAEnviar = {
+                ...formData,
+                habilidades: formData.habilidades.split(',').map(s => s.trim()).filter(s => s !== '')
+            };
+
+            await api.put('/pasantes/profile/me', datosAEnviar); // Usamos put directo
+            
+            // 2. Guardar Archivos (Si se seleccionaron)
+            if (fotoFile) {
+                const fotoData = new FormData();
+                fotoData.append('fotoPerfil', fotoFile);
+                await uploadFotoPerfil(fotoData);
+            }
+
+            if (cvFile) {
+                const cvData = new FormData();
+                cvData.append('cv', cvFile);
+                await uploadCV(cvData);
+            }
+
+            alert('Perfil actualizado con éxito');
+            navigate('/mi-perfil'); // Volver al Dashboard
+
         } catch (error) {
-            alert('Error al subir foto');
+            console.error(error);
+            alert('Error al actualizar perfil');
         }
     };
 
-    const handleSubirCV = async (e) => {
-        e.preventDefault();
-        if (!cvFile) return;
-        const formData = new FormData();
-        formData.append('cv', cvFile); // 'cv' debe coincidir con el backend
-
-        try {
-            await uploadCV(formData);
-            alert('CV subido correctamente!');
-            cargarPerfil();
-        } catch (error) {
-            alert('Error al subir CV');
-        }
-    };
-
-    if (loading) return <p>Cargando perfil...</p>;
+    if (loading) return <div className="p-10 text-center">Cargando editor...</div>;
 
     return (
-        <div className="max-w-4xl mx-auto p-5">
-            <h1 className="text-2xl font-bold mb-5">Mi Perfil</h1>
+        <div className="max-w-3xl mx-auto p-6 bg-white shadow-xl rounded-xl mt-10 mb-20">
+            <h1 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Editar Mi Perfil</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* --- SECCIÓN FOTO --- */}
-                <div className="bg-white p-6 shadow rounded-lg">
-                    <h2 className="text-xl font-semibold mb-4">Foto de Perfil</h2>
-                    
-                    {perfil?.fotoPerfil ? (
-                        <img 
-                            src={`${BASE_URL}/${perfil.fotoPerfil}`} 
-                            alt="Mi Foto" 
-                            className="w-32 h-32 rounded-full object-cover mb-4 border"
-                        />
-                    ) : (
-                        <div className="w-32 h-32 bg-gray-200 rounded-full mb-4 flex items-center justify-center text-gray-500">Sin Foto</div>
-                    )}
-
-                    <form onSubmit={handleSubirFoto} className="flex flex-col gap-2">
+            <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* --- SECCIÓN ARCHIVOS --- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4 rounded-lg">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Nueva Foto de Perfil</label>
                         <input 
                             type="file" 
                             accept="image/*"
                             onChange={(e) => setFotoFile(e.target.files[0])}
-                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                         />
-                        <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">
-                            Actualizar Foto
-                        </button>
-                    </form>
-                </div>
-
-                {/* --- SECCIÓN CV --- */}
-                <div className="bg-white p-6 shadow rounded-lg">
-                    <h2 className="text-xl font-semibold mb-4">Curriculum Vitae</h2>
-                    
-                    {perfil?.cvUrl ? (
-                        <div className="mb-4">
-                            <p className="text-green-600 font-medium">✅ CV Cargado</p>
-                            <a 
-                                href={`${BASE_URL}/${perfil.cvUrl}`} 
-                                target="_blank" 
-                                rel="noreferrer"
-                                className="text-blue-500 underline"
-                            >
-                                Ver mi CV actual
-                            </a>
-                        </div>
-                    ) : (
-                        <p className="text-red-500 mb-4">No has subido tu CV aún.</p>
-                    )}
-
-                    <form onSubmit={handleSubirCV} className="flex flex-col gap-2">
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Actualizar CV (PDF)</label>
                         <input 
                             type="file" 
                             accept="application/pdf"
                             onChange={(e) => setCvFile(e.target.files[0])}
-                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
                         />
-                        <button type="submit" className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
-                            Subir PDF
-                        </button>
-                    </form>
+                    </div>
                 </div>
-            </div>
+
+                {/* --- DATOS PERSONALES --- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" required />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Apellido</label>
+                        <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" required />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Teléfono</label>
+                        <input type="text" name="telefono" value={formData.telefono} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Carrera</label>
+                        <input type="text" name="carrera" value={formData.carrera} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" />
+                    </div>
+                </div>
+
+                {/* --- UBICACIÓN --- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Provincia</label>
+                        <input type="text" name="provincia" value={formData.provincia} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Localidad</label>
+                        <input type="text" name="localidad" value={formData.localidad} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" />
+                    </div>
+                </div>
+
+                {/* --- EXTRA --- */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">LinkedIn URL</label>
+                    <input type="url" name="linkedinUrl" value={formData.linkedinUrl} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" placeholder="https://linkedin.com/in/tu-perfil" />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">Sobre mí</label>
+                    <textarea name="sobreMi" rows="4" value={formData.sobreMi} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" placeholder="Cuéntanos sobre tus objetivos..."></textarea>
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">Habilidades (Separadas por comas)</label>
+                    <input type="text" name="habilidades" value={formData.habilidades} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" placeholder="Javascript, React, Trabajo en equipo..." />
+                </div>
+
+                {/* --- BOTONES DE ACCIÓN --- */}
+                <div className="flex justify-end gap-4 pt-4 border-t">
+                    <button 
+                        type="button" 
+                        onClick={() => navigate('/mi-perfil')}
+                        className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    >
+                        Cancelar
+                    </button>
+                    <button 
+                        type="submit" 
+                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium shadow-md"
+                    >
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }

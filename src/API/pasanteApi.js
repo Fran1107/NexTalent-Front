@@ -99,7 +99,12 @@ export async function deleteMyPasanteAccount() {
 export async function uploadFotoPerfil(formData) {
     try {
         const { data } = await api.post('/pasantes/upload-foto', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 
+                // 👇 ESTO ES LA CLAVE MÁGICA 👇
+                // Al ponerlo en "undefined" o null, eliminamos el "application/json" global
+                // y dejamos que el navegador ponga "multipart/form-data; boundary=..."
+                'Content-Type': undefined 
+            }
         });
         return data;
     } catch (error) {
@@ -114,7 +119,10 @@ export async function uploadFotoPerfil(formData) {
 export async function uploadCV(formData) {
     try {
         const { data } = await api.post('/pasantes/upload-cv', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 
+                // 👇 AQUÍ TAMBIÉN 👇
+                'Content-Type': undefined 
+            }
         });
         return data;
     } catch (error) {
@@ -124,6 +132,7 @@ export async function uploadCV(formData) {
         throw error;
     }
 }
+
 
 // --- GET: Favoritos de pasante ---
 export async function getFavoritos() {
