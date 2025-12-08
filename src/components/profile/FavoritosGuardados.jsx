@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"; 
 import CardFavorito from "./CardFavorito";
-import { getFavoritos, addFavorito, removeFavorito } from "../../API/PasanteAPI";
+import { getFavoritos, addFavorito, removeFavorito } from "../../API/pasanteApi.js";
 
 // Obtener la URL base del backend
 const BASE_URL = import.meta.env.VITE_API_URL.replace('/api','');

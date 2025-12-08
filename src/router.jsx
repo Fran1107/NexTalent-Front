@@ -20,9 +20,8 @@ export default function Router() {
                     <Route index element={<IndexView />} />
                     <Route path="quienessomos" element={<AboutUsView />} />
                     <Route path="auth/login" element={<LoginView />} />
-                    <Route path="registro/pasante" element={<RegisterView />} />
-                    <Route path="registro/empresa" element={<RegisterView />} />
-        
+                    <Route path="auth/register" element={<RegisterView />} />
+                    
                     {/* --- NUEVAS RUTAS DE PASANTES --- */}
                     
                     {/* Ruta Privada (Debería estar protegida, pero por ahora la ponemos aquí) */}
