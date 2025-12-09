@@ -94,7 +94,7 @@ export default function PerfilPublicoView() {
             {/* --- ZONA DE CONTROL (Solo para el dueño) --- */}
             {isOwner && (
                 <div className="mb-10">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6 font-serif">Mi Panel de Control</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6 font-noto">Mi Panel de Control</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         
                         <Link to="/mi-perfil/editar" className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100 flex flex-col items-center group text-center hover:border-blue-100">
@@ -128,7 +128,7 @@ export default function PerfilPublicoView() {
             <div className="grid md:grid-cols-3 gap-8">
                 {/* Columna Izquierda: Sobre mí */}
                 <div className="md:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 border-b pb-3 font-serif">Sobre mí</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 border-b pb-3 font-noto">Sobre mí</h3>
                     <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg">
                         {pasante.sobreMi || "Aún no has agregado una descripción."}
                     </p>
@@ -137,7 +137,7 @@ export default function PerfilPublicoView() {
                 {/* Columna Derecha: Habilidades y Contacto */}
                 <div className="space-y-8">
                     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 className="text-xl font-bold text-gray-900 mb-4 font-serif">Habilidades</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-4 font-noto">Habilidades</h3>
                         <div className="flex flex-wrap gap-2">
                             {pasante.habilidades && pasante.habilidades.length > 0 ? (
                                 pasante.habilidades.map((skill, index) => (
@@ -152,7 +152,7 @@ export default function PerfilPublicoView() {
                     </div>
 
                     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 className="text-xl font-bold text-gray-900 mb-6 font-serif">Contacto</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-6 font-noto">Contacto</h3>
                         <div className="space-y-4">
                             {pasante.linkedinUrl && (
                                 <a href={pasante.linkedinUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-blue-600 hover:text-blue-800 transition group">

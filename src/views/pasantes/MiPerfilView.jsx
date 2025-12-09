@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ModalMensajeExito, ModalMensajeError } from '../../components/MessageModals.jsx';
 import { getMyProfile, uploadCV, uploadFotoPerfil } from '../../API/pasanteApi.js';
 import api from '../../lib/axios'; // Importamos axios directo para el update de texto
 
@@ -10,6 +11,11 @@ export default function MiPerfilView() {
     // Estados para archivos
     const [fotoFile, setFotoFile] = useState(null);
     const [cvFile, setCvFile] = useState(null);
+
+    // Estados para Modales (Feedback)
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     // Estado para formulario de texto
     const [formData, setFormData] = useState({
@@ -82,12 +88,16 @@ export default function MiPerfilView() {
                 await uploadCV(cvData);
             }
 
-            alert('Perfil actualizado con éxito');
-            navigate('/mi-perfil'); // Volver al Dashboard
+            // ÉXITO: Mostramos el modal y preparamos el mensaje
+            setModalMessage('Tus datos y archivos se han actualizado correctamente.');
+            setShowSuccess(true);
+            // Nota: La navegación ocurre cuando el usuario cierra el modal (ver abajo en el JSX)
 
         } catch (error) {
             console.error(error);
-            alert('Error al actualizar perfil');
+            // ERROR: Mostramos el modal de error
+            setModalMessage(error.message || 'Hubo un problema al intentar guardar los cambios.');
+            setShowError(true);
         }
     };
 
@@ -186,6 +196,24 @@ export default function MiPerfilView() {
                     </button>
                 </div>
             </form>
+
+            {/* --- MODALES DE FEEDBACK --- */}
+            <ModalMensajeExito 
+                isOpen={showSuccess} 
+                title="¡Perfil Actualizado!"
+                message={modalMessage}
+                onClose={() => {
+                    setShowSuccess(false);
+                    navigate('/mi-perfil'); // Redirigir al dashboard al cerrar el éxito
+                }} 
+            />
+
+            <ModalMensajeError 
+                isOpen={showError} 
+                title="Error"
+                message={modalMessage}
+                onClose={() => setShowError(false)} 
+            />
         </div>
     );
 }
