@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; 
+import useFavoritos from "../../hooks/useFavoritos.js";
 import CardFavorito from "./CardFavorito";
 import { getFavoritos, addFavorito, removeFavorito } from "../../API/pasanteApi.js";
 
@@ -6,63 +6,30 @@ import { getFavoritos, addFavorito, removeFavorito } from "../../API/pasanteApi.
 const BASE_URL = import.meta.env.VITE_API_URL.replace('/api','');
 
 export default function FavoritosGuardados() {
-
-  const [favoritos, setFavoritos] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  // Cargar favoritos al montar
-  useEffect(() => {
-    const fetchFavoritos = async () => {
-      try {
-        const data = await getFavoritos();
-        setFavoritos(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchFavoritos();
-  }, []);
-
-  // Toggle favorito
-  const toggleFavorito = async (pasantiaId) => {
-    setLoading(true);
-    try {
-      const isFavorito = favoritos.some(f => f._id === pasantiaId);
-
-      if (isFavorito) {
-        await removeFavorito(pasantiaId);
-        setFavoritos(prev => prev.filter(f => f._id !== pasantiaId));
-      } else {
-        const nuevaFav = await addFavorito(pasantiaId);
-        setFavoritos(prev => [...prev, nuevaFav.pasantia]);
-      }
-    } catch (error) {
-      console.error("Error al actualizar favoritos", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { favoritos, loading, toggleFavorito } = useFavoritos();
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <main className="flex-1">
-        <div className="bg-white rounded-lg shadow-sm">
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+      <main className="max-w-3xl mx-auto flex-1 flex flex-col">
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          {/* Cabecera */}
           <div className="border-b border-gray-200 px-6 py-4">
             <h1 className="text-2xl font-bold text-gray-900">Mis favoritos</h1>
             <p className="text-gray-600 mt-1">{favoritos.length} resultados</p>
           </div>
 
-          <div className="p-6">
+          {/* Contenido */}
+          <div className="p-6 flex flex-col gap-4">
             {favoritos.length === 0 ? (
               <p className="text-gray-500 text-center py-12">
                 No tenés favoritos agregados todavía
               </p>
             ) : (
-              favoritos.map(fav => (
-                <CardFavorito 
+              favoritos.map((fav) => (
+                <CardFavorito
                   key={fav._id}
                   data={fav}
-                  isFavorito={true} // todos son favoritos aquí
+                  isFavorito={true}
                   toggleFavorito={toggleFavorito}
                   loading={loading}
                 />
@@ -71,6 +38,9 @@ export default function FavoritosGuardados() {
           </div>
         </div>
       </main>
+
+      {/* Margen inferior para que el footer no tape el contenido */}
+      <div className="h-24 sm:h-32" />
     </div>
   );
 }
