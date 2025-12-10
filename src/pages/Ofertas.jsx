@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
+import useFavoritos from "../hooks/useFavoritos"; // <<--- IMPORTANTE
 
 export default function Ofertas() {
   const [ofertas, setOfertas] = useState([]);
 
+  // ----------------------------------------
+  // FAVORITOS (hook reutilizable)
+  // ----------------------------------------
+  const { favoritos, toggleFavorito, loading } = useFavoritos();
+
+  // Cargar ofertas
   useEffect(() => {
     fetch("http://localhost:3000/api/postulaciones")
       .then(res => res.json())
       .then(data => setOfertas(data))
       .catch(err => console.error("Error:", err));
   }, []);
+
+  // Verifica si una oferta está en favoritos
+  const isFavorito = (id) => favoritos.some(f => f._id === id);
 
   return (
     <div className="min-h-screen bg-[#F6F4FA] pt-10 px-4">
@@ -55,7 +65,6 @@ export default function Ofertas() {
                 {o.descripcion}
               </p>
 
-              {/* UBICACIÓN + MODALIDAD */}
               <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
                 <span>
                   📍 {o.lugar?.provincia}, {o.lugar?.localidad}
@@ -70,9 +79,14 @@ export default function Ofertas() {
               </button>
             </div>
 
-            {/* CORAZÓN */}
-            <div className="text-gray-400 text-xl cursor-pointer">
-              🤍
+            {/* BOTÓN DE FAVORITO */}
+            <div
+              className={`text-2xl cursor-pointer select-none transition-transform ${
+                loading ? "opacity-50 pointer-events-none" : "hover:scale-125"
+              }`}
+              onClick={() => toggleFavorito(o._id)}
+            >
+              {isFavorito(o._id) ? "❤️" : "🤍"}
             </div>
           </div>
         ))}
