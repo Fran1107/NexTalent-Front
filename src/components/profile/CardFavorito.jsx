@@ -33,15 +33,15 @@ export default function CardFavorito({ data, isFavorito, toggleFavorito, loading
 
           {/* Estado, modalidad y duración */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-3">
-            {data.isActive && (
+            {data.estado && (
               <div className="flex items-center gap-2">
                 <span
-                  className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full ${
-                    data.isActive === "true" ? "bg-green-600" : "bg-red-600"
+                  className={`w-2 h-2 sm:w-2 sm:h-2 rounded-full ${
+                    data.estado === "Activa" ? "bg-green-300" : "bg-gray-300"
                   }`}
                 />
                 <p className="text-xs sm:text-sm text-gray-600">
-                  {data.isActive === "true" ? "Activa" : "Inactiva"}
+                  {data.estado === "Activa" ? "Pausada" : "Cerrada"}
                 </p>
               </div>
             )}
@@ -52,9 +52,6 @@ export default function CardFavorito({ data, isFavorito, toggleFavorito, loading
               </span>
             )}
 
-            {data.duracion && (
-              <p className="text-xs sm:text-sm text-gray-600">{data.duracion}</p>
-            )}
           </div>
 
           {/* Descripción */}
@@ -64,7 +61,7 @@ export default function CardFavorito({ data, isFavorito, toggleFavorito, loading
 
         <Link
           to={`/postulaciones/${data._id}`}
-          className="inline-flex items-end gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors"
+          className="inline-flex items-end gap-2 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium rounded-lg transition-colors"
         >
           Ver postulación
           <ArrowBendDownRightIcon size={16} weight="bold" />
