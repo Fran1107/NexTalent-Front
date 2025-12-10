@@ -118,7 +118,7 @@ export default function LoginPasante() {
                 </form>
 
                 <div className="mt-8 text-center">
-                    <p className="text-gray-600">¿No tenés cuenta? <a href="/registro/pasante" className="text-[#4D1874] font-bold hover:underline">Registrate</a></p>
+                    <p className="text-gray-600">¿No tenés cuenta? <a href="/auth/register" className="text-[#4D1874] font-bold hover:underline">Registrate</a></p>
                 </div>
             </div>
 

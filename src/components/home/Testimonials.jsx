@@ -72,7 +72,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-20 bg-[#ffffff] text-black">
+    <section className="py-10 bg-[#ffffff] text-black ml-10 mr-10">
       <div className="container mx-auto px-4">
 
         <h2 className="text-4xl font-bold text-center mb-4">

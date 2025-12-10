@@ -48,7 +48,7 @@ const CompanyLogo = ({ logoUrl, alt, customStyles }) => {
 
 export default function CompaniesSection() {
     return (
-        <section className="py-16 bg-white">
+        <section className="py-10 bg-white">
             <div className="container mx-auto px-4">
                 <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-12">
                     Empresas que necesitan tu talento
@@ -78,7 +78,7 @@ export default function CompaniesSection() {
                     </div>
 
                     {/* Flecha Derecha */}
-                    <button className="text-gray-500 hover:text-gray-800 text-3xl p-2 rounded-full transition-colors hidden sm:block" 
+                    <button className="text-gray-500 hover:text-gray-800 text-3xl p-4 rounded-full transition-colors hidden sm:block" 
                             aria-label="Siguiente">
                         &gt;
                     </button>

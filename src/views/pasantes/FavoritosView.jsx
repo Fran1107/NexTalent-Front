@@ -1,6 +1,5 @@
 import FavoritoHeroBanner from "../../components/profile/FavoritoHeroBanner";
 import FavoritosGuardados from "../../components/profile/FavoritosGuardados";
-import Ofertas from "../../pages/Ofertas";
 
 export default function FavoritosView() {
     return (
@@ -11,10 +10,10 @@ export default function FavoritosView() {
             </div>
             <div className="grid grid-cols-2">
                 <div className="">
-                    <Ofertas />
+                    <FavoritosGuardados /> 
                 </div>                    
                 <div className="min-h-screen">
-                    <FavoritosGuardados />                
+                              
                 </div>
             
             </div>
