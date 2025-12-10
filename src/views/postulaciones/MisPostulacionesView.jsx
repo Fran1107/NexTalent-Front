@@ -1,44 +1,36 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMisAplicaciones } from '../../API/aplicacionAPI.js';
-import { getAllPostulaciones } from '../../API/postulacionAPI.js'; // Importamos la que trae todas
-import { Building, MapPin, Calendar, ChevronRight } from 'lucide-react';
+import { getAllPostulaciones } from '../../API/postulacionAPI.js'; 
+import { Building, MapPin, Calendar, ChevronRight, Briefcase } from 'lucide-react';
 
 const BASE_URL = import.meta.env.VITE_API_URL.replace('/api', '');
 
 export default function MisPostulacionesView() {
-    // Estado para la lista combinada final
     const [listaCombinada, setListaCombinada] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const cargarYCruzarDatos = async () => {
             try {
-                // 1. Llamamos a las dos funciones en paralelo
                 const [resOfertas, resAplicaciones] = await Promise.all([
                     getAllPostulaciones(),
                     getMisAplicaciones()
                 ]);
 
-                // 2. Normalizamos la data (por si vienen en { postulaciones: [...] } o directo array)
                 const todasLasOfertas = Array.isArray(resOfertas) ? resOfertas : (resOfertas.postulaciones || []);
                 const misAplicaciones = Array.isArray(resAplicaciones) ? resAplicaciones : (resAplicaciones.aplicaciones || []);
 
-                // 3. HACEMOS EL CRUCE (El "Filtro" que pediste)
-                // Recorremos mis aplicaciones y le pegamos la info de la oferta correspondiente
                 const dataFinal = misAplicaciones.map((app) => {
-                    // Obtenemos el ID limpio de la oferta asociada a esta aplicación
-                    // (A veces viene populado como objeto, a veces como string)
                     const idBuscado = typeof app.postulacionId === 'object' 
                         ? app.postulacionId._id 
                         : app.postulacionId;
 
-                    // Buscamos la oferta original en el array grande (donde los logos SÍ funcionan)
                     const ofertaOriginal = todasLasOfertas.find(oferta => oferta._id === idBuscado);
 
                     return {
-                        ...app, // Mantenemos estado, fecha, etc. de la aplicación
-                        ofertaData: ofertaOriginal || {} // Guardamos la info "buena" aquí
+                        ...app, 
+                        ofertaData: ofertaOriginal || {} 
                     };
                 });
 
@@ -75,7 +67,7 @@ export default function MisPostulacionesView() {
     return (
         <div className="min-h-screen bg-[#F6F4FA] pt-10 px-4 pb-20">
             <div className="max-w-4xl mx-auto">
-                <h1 className="text-2xl font-bold font-serif text-gray-800 mb-6 border-b pb-4">
+                <h1 className="text-center text-2xl font-semibold text-gray-800 mb-8">
                     Historial de Postulaciones
                 </h1>
 
@@ -87,24 +79,23 @@ export default function MisPostulacionesView() {
                         </Link>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-6">
                         {listaCombinada.map((item) => {
-                            // Ahora usamos 'item.ofertaData' que viene de getAllPostulaciones
                             const oferta = item.ofertaData; 
-                            // Ojo: en getAllPostulaciones, la empresa a veces viene populada como 'empresaId'
                             const empresa = oferta.empresaId || {}; 
-
-                            // Aquí tomamos el logo de la oferta original (tal como funciona en tu vista de Ofertas)
-                            // Si en Ofertas usabas 'empresaId.logo' o 'oferta.logo', aquí será igual.
+                            
                             const rutaLogo = empresa.logo || oferta.logo;
                             const logoUrl = getLogoUrl(rutaLogo);
                             const fecha = new Date(item.createdAt).toLocaleDateString();
 
                             return (
-                                <div key={item._id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col md:flex-row gap-6 items-center">
+                                <div 
+                                    key={item._id} 
+                                    className="bg-white rounded-xl shadow-md border border-gray-200 p-6 flex flex-col md:flex-row gap-5 items-start"
+                                >
                                     
-                                    {/* LOGO (Traído de la lista maestra) */}
-                                    <div className="w-16 h-16 flex-shrink-0 bg-white border rounded-lg p-1 flex items-center justify-center overflow-hidden">
+                                    {/* LOGO (Tamaño w-20 h-20 igual que en Ofertas) */}
+                                    <div className="w-20 h-20 flex-shrink-0 flex items-center justify-center bg-white border rounded-lg shadow-sm overflow-hidden">
                                         <img 
                                             src={logoUrl} 
                                             alt="Logo" 
@@ -114,38 +105,55 @@ export default function MisPostulacionesView() {
                                     </div>
 
                                     {/* Info Principal */}
-                                    <div className="flex-1 w-full text-center md:text-left">
-                                        <h3 className="text-lg font-bold text-gray-900 font-serif">
-                                            {oferta.titulo || "Oferta no disponible"}
-                                        </h3>
-                                        <p className="text-gray-500 text-sm flex items-center justify-center md:justify-start gap-1 mt-1">
-                                            {/* Intentamos obtener nombre de empresa de varios lados por si acaso */}
-                                            <Building size={14}/> {empresa.nombre || empresa.nombreCorporativo || "Empresa"}
+                                    <div className="flex-1 w-full">
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <p className="text-sm text-gray-500 mb-1 flex items-center gap-1">
+                                                    <Calendar size={12}/> Aplicado el {fecha}
+                                                </p>
+                                                <h2 className="text-xl font-semibold text-gray-900">
+                                                    {oferta.titulo || "Oferta no disponible"}
+                                                </h2>
+                                                <p className="text-indigo-600 font-medium text-sm mt-1 flex items-center gap-1">
+                                                    <Building size={14}/> {oferta.empresa || empresa.nombreCorporativo || "Empresa"}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* Descripción cortada (opcional, para dar consistencia visual con Ofertas) */}
+                                        <p className="text-gray-600 mt-3 text-sm line-clamp-2 font-sans">
+                                            {oferta.descripcion || "Sin descripción disponible."}
                                         </p>
                                         
-                                        <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-3 text-xs text-gray-500">
-                                            <span className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded">
-                                                <Calendar size={12}/> Aplicado: {fecha}
-                                            </span>
+                                        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mt-4 font-medium">
                                             {oferta.lugar && (
                                                 <span className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded">
-                                                    <MapPin size={12}/> 
+                                                    <MapPin size={14}/> 
                                                     {oferta.lugar.localidad || oferta.lugar.provincia || "Ubicación"}
+                                                </span>
+                                            )}
+                                            {oferta.modalidad && (
+                                                <span className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded">
+                                                    <Briefcase size={14}/> {oferta.modalidad}
                                                 </span>
                                             )}
                                         </div>
                                     </div>
 
-                                    {/* Estado y Acción */}
-                                    <div className="flex flex-col items-center gap-3 min-w-[140px]">
-                                        <span className={`px-4 py-1 rounded-full text-xs font-bold border ${getStatusColor(item.estado)}`}>
+                                    {/* COLUMNA DERECHA (Copiada estructura de Ofertas) */}
+                                    <div className="flex flex-row md:flex-col items-center justify-between w-full md:w-auto mt-4 md:mt-0 gap-3 min-w-[140px]">
+                                        
+                                        {/* 1. Elemento Superior: ESTADO (En lugar del Corazón) */}
+                                        <span className={`px-4 py-1 rounded-full text-xs font-bold border w-full md:w-auto text-center ${getStatusColor(item.estado)}`}>
                                             {item.estado || 'Enviada'}
                                         </span>
-                                        
+
+                                        {/* 2. Elemento Inferior: BOTÓN VER OFERTA (Con margen superior grande) */}
                                         {oferta._id && (
                                             <Link 
                                                 to={`/postulaciones/${oferta._id}`} 
-                                                className="text-indigo-600 text-sm font-medium hover:text-indigo-800 flex items-center gap-1 group"
+                                                // Aquí aplicamos el md:mt-20 para empujarlo abajo igual que el botón Postularme
+                                                className="md:mt-20 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-6 py-2 rounded-full font-medium transition text-sm flex items-center justify-center gap-1 whitespace-nowrap w-full md:w-auto group"
                                             >
                                                 Ver Oferta <ChevronRight size={16} className="group-hover:translate-x-1 transition"/>
                                             </Link>
