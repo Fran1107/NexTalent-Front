@@ -1,16 +1,17 @@
-// src/handlers/favoritosHandler.js
 import { getFavoritos, addFavorito, removeFavorito } from "../API/pasanteApi";
 
 export const fetchFavoritosHandler = async () => {
   return await getFavoritos();
 };
 
-export const toggleFavoritoHandler = async (isFavorito, pasantiaId) => {
+export const toggleFavoritoHandler = async (isFavorito, postulacionId) => {
   if (isFavorito) {
-    await removeFavorito(pasantiaId);
-    return { removed: true };
+    // ✅ Devolver la respuesta completa del backend
+    const response = await removeFavorito(postulacionId);
+    return response; // { message: "...", favoritos: [...] }
   } else {
-    const nuevaFav = await addFavorito(pasantiaId);
-    return { removed: false, pasantia: nuevaFav.pasantia };
+    // ✅ Devolver la respuesta completa del backend
+    const response = await addFavorito(postulacionId);
+    return response; // { message: "...", favoritos: [...] }
   }
 };

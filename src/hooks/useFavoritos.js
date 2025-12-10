@@ -21,20 +21,22 @@ export default function useFavoritos() {
   }, []);
 
   // Toggle global reutilizable
-  const toggleFavorito = async (pasantiaId) => {
+  const toggleFavorito = async (postulacionId) => {
     setLoading(true);
     try {
-      const isFavorito = favoritos.some(f => f._id === pasantiaId);
+      const isFavorito = favoritos.some(f => f._id === postulacionId);
 
-      const result = await toggleFavoritoHandler(isFavorito, pasantiaId);
+      // ✅ Recibir la respuesta completa: { message, favoritos }
+      const result = await toggleFavoritoHandler(isFavorito, postulacionId);
 
-      if (result.removed) {
-        setFavoritos(prev => prev.filter(f => f._id !== pasantiaId));
-      } else {
-        setFavoritos(prev => [...prev, result.pasantia]);
+      // ✅ Actualizar con el array que devuelve el backend
+      if (result.favoritos) {
+        setFavoritos(result.favoritos);
       }
+      
     } catch (error) {
       console.error("Error al actualizar favorito", error);
+      alert("Error al actualizar favoritos. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
