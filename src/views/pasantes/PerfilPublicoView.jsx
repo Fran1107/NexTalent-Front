@@ -103,11 +103,11 @@ export default function PerfilPublicoView() {
                             <span className="text-sm text-gray-500 mt-1">Datos y Foto</span>
                         </Link>
 
-                        <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100 flex flex-col items-center cursor-pointer group text-center hover:border-blue-100">
+                        <Link to="/mi-perfil/mis-postulaciones" className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100 flex flex-col items-center cursor-pointer group text-center hover:border-blue-100">
                             <Briefcase size={32} className="text-blue-500 mb-3 group-hover:scale-110 transition-transform" />
                             <span className="font-bold text-gray-800">Mis Postulaciones</span>
                             <span className="text-sm text-gray-500 mt-1">Ver estado</span>
-                        </div>
+                        </Link>
 
                         <Link to="/mi-perfil/favoritos" className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100 flex flex-col items-center cursor-pointer group text-center hover:border-red-100">
                             <Heart size={32} className="text-red-500 mb-3 group-hover:scale-110 transition-transform" />

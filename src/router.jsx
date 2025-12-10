@@ -10,6 +10,9 @@ import PerfilPublicoView from "./views/pasantes/PerfilPublicoView";
 import Onboarding from "./views/auth/Onboarding"
 import Layout from "./layouts/Layout";
 import FavoritosView from "./views/pasantes/FavoritosView"
+import PostulacionDetailView from "./views/postulaciones/PostulacionDetailView";
+import MisPostulacionesView from "./views/postulaciones/MisPostulacionesView";
+
 
 export default function Router() {
     return (
@@ -40,6 +43,15 @@ export default function Router() {
                     <Route path="onboarding" element={<Onboarding />} />
 
                     <Route path="ofertas" element={<Ofertas />} />
+
+
+                    {/* Ver detalles de una oferta (Pública o Privada) */}
+                    <Route path="postulaciones/:id" element={<PostulacionDetailView />} />
+
+                    {/* Ver mis postulaciones (Pasante) o Mis Ofertas (Empresa) */}
+                    {/* Nota: Protege esta ruta si puedes, o el componente manejará la redirección si falla la carga */}
+                    <Route path="mis-postulaciones" element={<MisPostulacionesView />} />
+                    <Route path="mi-perfil/mis-postulaciones" element={<MisPostulacionesView />} />
                 </Route>
             </Routes>
         </BrowserRouter>

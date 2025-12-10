@@ -1,83 +1,167 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; 
+import { getAllPostulaciones } from "../API/postulacionAPI.js"; 
+import { crearAplicacion } from "../API/aplicacionAPI.js";
+import { ModalMensajeExito, ModalMensajeError } from "../components/MessageModals";
+import { MapPin, Briefcase, Building } from 'lucide-react';
+
+const BASE_URL = import.meta.env.VITE_API_URL.replace('/api', '');
 
 export default function Ofertas() {
   const [ofertas, setOfertas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Estados para los Modales
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  
+  // Estado para spinner individual
+  const [applyingId, setApplyingId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/postulaciones")
-      .then(res => res.json())
-      .then(data => setOfertas(data))
-      .catch(err => console.error("Error:", err));
+    cargarOfertas();
   }, []);
 
+  const cargarOfertas = async () => {
+    try {
+      const data = await getAllPostulaciones();
+      if (Array.isArray(data)) setOfertas(data);
+      else if (data.postulaciones) setOfertas(data.postulaciones);
+    } catch (err) {
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePostularse = async (ofertaId) => {
+    setApplyingId(ofertaId); 
+    try {
+      await crearAplicacion({ postulacionId: ofertaId });
+      setModalMsg("¡Te has postulado correctamente! La empresa recibió tu perfil.");
+      setShowSuccess(true);
+    } catch (error) {
+      console.error(error);
+      setModalMsg(error.error || "No pudimos procesar tu postulación. Verifica tu perfil.");
+      setShowError(true);
+    } finally {
+      setApplyingId(null); 
+    }
+  };
+
+  // --- FUNCIÓN HELPER PARA ARREGLAR LOGOS ---
+  const getLogoUrl = (path) => {
+    if (!path) return "https://via.placeholder.com/80";
+    // Si ya viene con http (es de internet), lo dejamos tal cual
+    if (path.startsWith('http')) return path; 
+    // Si es una ruta local (subida por Multer), le pegamos el localhost
+    return `${BASE_URL}/${path}`;
+  };
+
+  if (loading) return <div className="text-center py-20 text-gray-500">Cargando pasantías...</div>;
+
   return (
-    <div className="min-h-screen bg-[#F6F4FA] pt-10 px-4">
+    <div className="min-h-screen bg-[#F6F4FA] pt-10 px-4 pb-20">
       
-      {/* TÍTULO */}
-      <h1 className="text-center text-2xl font-semibold text-gray-800 mb-8">
+      <h1 className="text-center text-3xl font-bold font-serif text-gray-800 mb-2">
         Pasantías activas
       </h1>
 
-      {/* CANTIDAD */}
-      <p className="max-w-3xl mx-auto text-gray-600 mb-4">
-        {ofertas.length} resultados
+      <p className="max-w-3xl mx-auto text-center text-gray-500 mb-8 font-sans">
+        {ofertas.length} resultados encontrados
       </p>
 
-      {/* LISTADO */}
-      <div className="max-w-4xl mx-auto flex flex-col gap-6 pb-20">
-        {ofertas.map((o) => (
-          <div
-            key={o._id}
-            className="bg-white rounded-xl shadow-md border border-gray-200 p-6 flex gap-5 items-start"
-          >
-            {/* LOGO */}
-            <div className="w-20 h-20 flex items-center justify-center bg-white border rounded-lg shadow-sm">
-              <img
-                src={o.logo || "https://via.placeholder.com/80"}
-                alt="logo"
-                className="w-14 h-14 object-contain"
-              />
-            </div>
+      <div className="max-w-4xl mx-auto flex flex-col gap-6">
+        {ofertas.map((o) => {
+            const nombreEmpresa = o.empresaId?.nombre || o.empresaId?.nombreCorporativo || o.empresaNombre || "Empresa";
+            
+            // Usamos el helper aquí 👇
+            const logoPath = o.empresaId?.logo || o.logo;
+            const logoUrl = getLogoUrl(logoPath);
 
-            {/* INFORMACIÓN */}
-            <div className="flex-1">
-              <p className="text-sm text-gray-500 mb-1">Publicado ayer</p>
+            return (
+              <div
+                key={o._id}
+                className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col md:flex-row gap-5 items-start hover:shadow-md transition"
+              >
+                {/* LOGO */}
+                <div className="w-16 h-16 flex-shrink-0 flex items-center justify-center bg-white border rounded-lg overflow-hidden shadow-sm p-1">
+                  <img
+                    src={logoUrl}
+                    alt="logo"
+                    className="w-full h-full object-contain"
+                    onError={(e) => { e.target.src = "https://via.placeholder.com/80" }} // Fallback si la imagen no carga
+                  />
+                </div>
 
-              <h2 className="text-xl font-semibold text-gray-900">
-                {o.titulo}
-              </h2>
+                <div className="flex-1 w-full">
+                  <div className="flex justify-between items-start">
+                    <div>
+                        <p className="text-xs text-gray-400 font-medium mb-1">
+                            Publicado el {new Date(o.createdAt).toLocaleDateString()}
+                        </p>
+                        <h2 className="text-xl font-bold text-gray-900 font-serif leading-tight">
+                            {o.titulo}
+                        </h2>
+                        <p className="text-indigo-600 font-medium text-sm mt-1 flex items-center gap-1">
+                            <Building size={14}/> {nombreEmpresa}
+                        </p>
+                    </div>
+                  </div>
 
-              <p className="text-gray-700 font-medium mb-2">
-                {o.empresa || "Empresa no especificada"}
-              </p>
+                  <p className="text-gray-600 mt-3 text-sm line-clamp-2 font-sans">
+                    {o.descripcion}
+                  </p>
 
-              <p className="text-gray-600 mb-3">
-                {o.descripcion}
-              </p>
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mt-4 font-medium">
+                    <span className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded">
+                      <MapPin size={14}/> {o.lugar?.provincia}, {o.lugar?.localidad}
+                    </span>
 
-              {/* UBICACIÓN + MODALIDAD */}
-              <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                <span>
-                  📍 {o.lugar?.provincia}, {o.lugar?.localidad}
-                </span>
+                    <span className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded">
+                        <Briefcase size={14}/> {o.modalidad}
+                    </span>
+                  </div>
+                </div>
 
-                <span>💼 {o.modalidad}</span>
+                <div className="flex flex-row md:flex-col items-center justify-between w-full md:w-auto mt-4 md:mt-0 gap-3">
+                    <button 
+                        onClick={() => handlePostularse(o._id)}
+                        disabled={applyingId === o._id}
+                        className={`px-6 py-2 rounded-full font-bold text-sm text-white shadow-sm transition whitespace-nowrap w-full md:w-auto
+                            ${applyingId === o._id 
+                                ? 'bg-gray-400 cursor-not-allowed' 
+                                : 'bg-[#6B2BEF] hover:bg-[#5722C6] active:scale-95 transform'
+                            }`}
+                    >
+                        {applyingId === o._id ? 'Enviando...' : 'Postularme'}
+                    </button>
+
+                    <button className="text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-full transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </button>
+                </div>
               </div>
-
-              {/* BOTÓN */}
-              <button className="bg-[#6B2BEF] hover:bg-[#5722C6] text-white px-6 py-2 rounded-full font-medium transition">
-                Postularme
-              </button>
-            </div>
-
-            {/* CORAZÓN */}
-            <div className="text-gray-400 text-xl cursor-pointer">
-              🤍
-            </div>
-          </div>
-        ))}
+            );
+        })}
       </div>
+
+      <ModalMensajeExito 
+        isOpen={showSuccess} 
+        onClose={() => setShowSuccess(false)} 
+        title="¡Solicitud Enviada!"
+        message={modalMsg}
+      />
+      <ModalMensajeError 
+        isOpen={showError} 
+        onClose={() => setShowError(false)} 
+        title="No pudimos postularte"
+        message={modalMsg}
+      />
+
     </div>
   );
 }
-
