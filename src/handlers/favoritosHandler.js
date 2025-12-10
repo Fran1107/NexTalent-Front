@@ -1,17 +1,13 @@
 import { getFavoritos, addFavorito, removeFavorito } from "../API/pasanteApi";
 
+// Obtener favoritos desde el backend
 export const fetchFavoritosHandler = async () => {
-  return await getFavoritos();
+  return await getFavoritos(); // Devuelve directamente el array
 };
 
 export const toggleFavoritoHandler = async (isFavorito, postulacionId) => {
-  if (isFavorito) {
-    // ✅ Devolver la respuesta completa del backend
-    const response = await removeFavorito(postulacionId);
-    return response; // { message: "...", favoritos: [...] }
-  } else {
-    // ✅ Devolver la respuesta completa del backend
-    const response = await addFavorito(postulacionId);
-    return response; // { message: "...", favoritos: [...] }
-  }
+  // ✅ Más conciso: devolver directamente la promesa
+  return isFavorito 
+    ? await removeFavorito(postulacionId)
+    : await addFavorito(postulacionId);
 };

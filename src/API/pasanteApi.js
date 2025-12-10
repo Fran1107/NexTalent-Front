@@ -146,9 +146,9 @@ export async function getFavoritos() {
 }
 
 // --- POST: Guardar favoritos del pasante ---
-export async function addFavorito(pasantiaId) {
+export async function addFavorito(postulacionId) {
     try {
-        const { data } = await api.post(`/pasantes/favoritos/${pasantiaId}`)
+        const { data } = await api.post(`/pasantes/favoritos/${postulacionId}`)
         return data
     } catch (error) {
         if (isAxiosError(error)) throw error.response?.data
@@ -157,9 +157,9 @@ export async function addFavorito(pasantiaId) {
 }
 
 // --- DELETE: Remover favorito ---
-export async function removeFavorito(pasantiaId) {
+export async function removeFavorito(postulacionId) {
   try {
-    const { data } = await api.delete(`/pasantes/favoritos/${pasantiaId}`);
+    const { data } = await api.delete(`/pasantes/favoritos/${postulacionId}`);
     return data;
   } catch (error) {
     console.error(error);
