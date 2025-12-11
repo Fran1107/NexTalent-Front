@@ -1,4 +1,4 @@
-import { MapPin, Briefcase, Building, Calendar, Clock, ArrowBendDownRightIcon } from "@phosphor-icons/react";
+import { MapPin, Briefcase, Building, Calendar, Clock, ArrowBendRightUpIcon } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 
 export default function DetallePostulacion({ postulacion }) {
@@ -89,8 +89,7 @@ export default function DetallePostulacion({ postulacion }) {
           to={`/postulaciones/${postulacion._id}`}
           className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-medium rounded-md transition-colors"
         >
-          Ver postulación completa
-          <ArrowBendDownRightIcon size={18} weight="bold" />
+          Ver postulación 
         </Link>
       </div>
     </div>
